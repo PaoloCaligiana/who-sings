@@ -1,23 +1,22 @@
 @import "tailwindcss";
 
-
-
-/*  design system */
+/*  Design System */
 @theme {
-  /*  Colori brand per il gioco "Who Sings" */
+  /* Brand Colors */
   --color-bg: #050816;
   --color-surface: #0f172a;
+  --color-surface-dark: #0b1121;
   --color-primary: #f97316;
   --color-primary-soft: color-mix(in oklch, var(--color-primary) 80%, black);
   --color-success: #22c55e;
   --color-danger: #ef4444;
   --color-muted: #6b7280;
 
-  /*  Font */
+  /* Font */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
   --font-display: "Poppins", system-ui, sans-serif;
 
-  /*  Dimensioni testo personalizzate */
+  /* Text Sizes */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -25,13 +24,10 @@
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
   --text-display: 2rem;
-  /* tipo titolo pagina */
 }
 
-
-/* Componenti riusabili */
 @layer components {
-
+  /* --- BUTTONS --- */
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150;
   }
@@ -44,7 +40,43 @@
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-transparent text-primary hover:bg-primary/10;
   }
 
+  .btn-surface {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-surface text-white border border-surface-dark hover:border-primary;
+  }
+
+  /* --- CARD --- */
   .card {
     @apply bg-surface rounded-2xl p-6 shadow-lg;
+  }
+
+  /* --- SURFACES --- */
+  .surface {
+    @apply bg-surface rounded-xl p-2;
+  }
+
+  .surface-dark {
+    @apply bg-surface-dark rounded-xl;
+  }
+
+  /* --- DROPDOWN MENU --- */
+  .dropdown {
+    @apply absolute right-0 mt-2 w-44 bg-surface border border-surface-dark rounded-xl shadow-lg z-20;
+  }
+
+  .dropdown-item {
+    @apply w-full flex items-center gap-2 px-4 py-2 text-left text-neutral-200 hover:bg-surface-dark transition rounded-lg;
+  }
+
+  .dropdown-item-active {
+    @apply bg-primary text-white hover:bg-primary-soft;
+  }
+
+  /* --- MINI UTILS --- */
+  .flag {
+    @apply text-lg;
+  }
+
+  .lang-trigger {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-surface-dark text-neutral-200 hover:border-primary hover:text-white transition;
   }
 }
