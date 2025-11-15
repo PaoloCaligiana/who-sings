@@ -1,3 +1,5 @@
+import { LanguageSwitcher } from "./components/LanguageSwithcer"
+
 function App() {
 
   return (
@@ -12,6 +14,7 @@ function App() {
 
         <button className="btn-primary">Gioca</button>
         <button className="btn-ghost ml-2">Esci</button>
+        <LanguageSwitcher/>
 
         <div className="card mt-6">
           <h2 className="font-display text-xl">Prossima domanda</h2>
