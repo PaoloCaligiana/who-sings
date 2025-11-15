@@ -24,30 +24,27 @@
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
-  --text-display: 2rem; /* tipo titolo pagina */
+  --text-display: 2rem;
+  /* tipo titolo pagina */
 }
 
-/* Utility base */
-@layer utilities {
-  .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-full
-      text-sm font-medium transition-colors duration-150;
-  }
-}
 
 /* Componenti riusabili */
 @layer components {
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150;
+  }
+
   .btn-primary {
-    @apply btn bg-primary text-white hover:bg-primary-soft;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-primary text-white hover:bg-primary-soft;
   }
 
   .btn-ghost {
-    @apply btn bg-transparent text-primary hover:bg-primary/10;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-transparent text-primary hover:bg-primary/10;
   }
 
   .card {
     @apply bg-surface rounded-2xl p-6 shadow-lg;
   }
 }
-
-
