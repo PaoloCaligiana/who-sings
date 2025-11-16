@@ -5,17 +5,30 @@ export const LANGS = [
 ] as const;
 
 // derived type Lang from LANGS
-export type Lang = (typeof LANGS)[number]["code"]; // "en" / "it" ..
+export type Lang = (typeof LANGS)[number]["code"];
 
 // derived runtime array for validation
 export const supportedLangs = LANGS.map((l) => l.code);
 
 export const dictionary = {
   "login.title": {
-    en: "Welcome to Who Sings",
-    it: "Benvenuto in Who Sings",
-    es: "Bienvenido a Who Sings",
+    en: "Welcome to Who Sings 🎵",
+    it: "Benvenuto in Who Sings 🎵",
+    es: "Bienvenido a Who Sings 🎵",
   },
+
+  "login.subtitle": {
+    en: "Enter your name to start playing.",
+    it: "Inserisci il tuo nome per iniziare a giocare.",
+    es: "Ingresa tu nombre para comenzar a jugar.",
+  },
+
+  "login.placeholder": {
+    en: "Player name",
+    it: "Nome giocatore",
+    es: "Nombre del jugador",
+  },
+
   "login.button": {
     en: "Start Game",
     it: "Inizia il gioco",
@@ -27,6 +40,7 @@ export const dictionary = {
     it: "Gioca",
     es: "Jugar",
   },
+
   "navbar.highScores": {
     en: "High Scores",
     it: "Classifica",
@@ -38,6 +52,7 @@ export const dictionary = {
     it: "Tempo rimasto",
     es: "Tiempo restante",
   },
+
   "quiz.score": {
     en: "Score",
     it: "Punteggio",

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./app/AppLayout";
 import { getCurrentPlayer } from "./storage/playerStorage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/login/LoginPage";
 
 
 export default function App() {

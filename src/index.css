@@ -31,37 +31,58 @@
 @layer components {
 
   /* --- BUTTONS --- */
-  .btn {
+  /* .btn {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150;
   }
 
   .btn-primary {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-primary text-white hover:bg-primary-soft;
-  }
+  } */
 
   /* [linear-gradient(90deg,#FF6B6B,#FFB347)] */
 
-  /* .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white border-2 border-transparent;
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 text-white border-2 border-transparent;
     background: var(--color-gradient-primary);
   }
 
   .btn-primary:hover {
     @apply border-white bg-primary-soft;
+    cursor: pointer;
   }
 
   .btn-primary:active {
-    @apply scale-95 shadow-lg;
+    @apply shadow-lg;
     background: var(--color-gradient-primary-soft);
-  } */
+  }
 
-  /* bg-[linear-gradient(90deg,#FF6B6B,#FFB347)] */
+  .btn-primary:disabled {
+    @apply opacity-50 border-transparent cursor-default;
+    background: var(--color-gradient-primary-soft);
+  }
+
+
+
   .btn-ghost {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-transparent text-primary hover:bg-primary/10;
   }
 
   .btn-surface {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-surface text-white border border-surface-dark hover:border-primary;
+  }
+
+
+  /* --- INPUT --- */
+  .input {
+    @apply w-full px-4 py-2 rounded-lg text-white bg-surface-dark border border-surface-dark transition-colors duration-150 placeholder:text-muted focus:outline-none focus:border-primary;
+  }
+
+  .input:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  .input-error {
+    @apply border-danger focus:border-danger;
   }
 
 
@@ -83,7 +104,7 @@
 
   /* --- CARD --- */
   .card {
-    @apply bg-surface rounded-2xl p-6 shadow-lg;
+    @apply w-full rounded-2xl p-6 bg-surface/90 backdrop-blur-xl shadow-xl;
   }
 
   /* --- SURFACES --- */
