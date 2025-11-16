@@ -118,6 +118,69 @@ export const dictionary = {
     it: "#{pos} ",
     es: "#{pos} ",
   },
+
+    "userpage.title": {
+    en: "Hi, {player} 👋",
+    it: "Ciao, {player} 👋",
+    es: "Hola, {player} 👋",
+  },
+
+  "userpage.statsTitle": {
+    en: "Statistics",
+    it: "Statistiche",
+    es: "Estadísticas",
+  },
+
+  "userpage.gamesPlayed": {
+    en: "Games played",
+    it: "Partite giocate",
+    es: "Partidas jugadas",
+  },
+
+  "userpage.bestScore": {
+    en: "Best score",
+    it: "Miglior punteggio",
+    es: "Mejor puntuación",
+  },
+
+  "userpage.badgesTitle": {
+    en: "Badges",
+    it: "Medaglie",
+    es: "Medallas",
+  },
+
+  "userpage.badge.firstPlay": {
+    en: "First Play - You completed at least one match",
+    it: "First Play - Hai completato almeno una partita",
+    es: "First Play - Has completado al menos una partida",
+  },
+
+  "userpage.badge.highRoller": {
+    en: "High Roller - You scored at least 9 points",
+    it: "High Roller - Hai fatto almeno 9 punti",
+    es: "High Roller - Has hecho al menos 9 puntos",
+  },
+
+  "userpage.badge.hotStreak": {
+    en: "Hot Streak - You reached a streak of 5",
+    it: "Hot Streak - Hai raggiunto una streak di 5",
+    es: "Hot Streak - Has alcanzado una racha de 5",
+  },
+
+  "userpage.recentGamesTitle": {
+    en: "Recent games",
+    it: "Ultime partite",
+    es: "Partidas recientes",
+  },
+
+  "userpage.noGames": {
+    en: "No games played yet. Try the quiz!",
+    it: "Nessuna partita giocata ancora. Vai a provare il quiz!",
+    es: "Aún no has jugado ninguna partida. ¡Prueba el quiz!",
+  },
+
+
+
 } as const;
 
 export function translate(key: keyof typeof dictionary, lang: Lang): string {
