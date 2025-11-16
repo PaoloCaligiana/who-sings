@@ -1,7 +1,7 @@
 import { useLang } from "../i18n/LangContext";
 import { translate } from "../i18n/dictionary";
 
-export function LoginScreen() {
+export default function LoginScreen() {
   const { lang } = useLang();
 
   return (

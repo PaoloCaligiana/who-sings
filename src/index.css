@@ -12,9 +12,7 @@
   --color-danger: #ef4444;
   --color-muted: #6b7280;
   --color-gradient-primary: linear-gradient(90deg, #FF6B6B, #FFB347);
-  --color-gradient-primary-soft: linear-gradient(90deg,
-      color-mix(in oklch, #FF6B6B 70%, black),
-      color-mix(in oklch, #FFB347 70%, black));
+  --color-gradient-primary-soft: linear-gradient(90deg, color-mix(in oklch, #FF6B6B 70%, black), color-mix(in oklch, #FFB347 70%, black));
 
   /* Font */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
@@ -65,6 +63,23 @@
   .btn-surface {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-surface text-white border border-surface-dark hover:border-primary;
   }
+
+
+  /* --- NAVBAR LINKS --- */
+  .nav-link {
+    @apply text-sm font-medium text-white/90 px-3 py-1.5 rounded-full transition hover:text-white hover:bg-white/10;
+  }
+
+  /* --- NAVBAR OUTLINE BUTTON (Logout) --- */
+  .btn-nav-outline {
+    @apply px-4 py-2 rounded-full text-sm font-medium border border-white/40 text-white/90 hover:text-white hover:border-white transition;
+  }
+
+  /* --- RADIAL BACKGROUND UTILITY --- */
+  .bg-hero-radial {
+    background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 55%, var(--color-bg) 100%);
+  }
+
 
   /* --- CARD --- */
   .card {

@@ -1,12 +1,8 @@
 import { useState } from "react";
 import { useLang } from "../i18n/LangContext";
-import type { Lang } from "../i18n/dictionary";
+import { LANGS } from "../i18n/dictionary";
 
-const LANGS: { code: Lang; label: string; flag: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "it", label: "Italiano", flag: "🇮🇹" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-];
+
 
 export function LanguageSwitcher() {
   const { lang, setLang } = useLang();

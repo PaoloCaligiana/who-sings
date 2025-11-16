@@ -1,13 +1,13 @@
 import { type ReactNode, useState } from "react";
 import { LangContext } from "./LangContext";
 import type { Lang } from "./dictionary";
+import { getSavedLanguage, saveLanguage } from "../storage/languageStorage";
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const saved = (localStorage.getItem("lang") as Lang) || "en";
-  const [lang, setLang] = useState<Lang>(saved);
+  const [lang, setLang] = useState<Lang>(getSavedLanguage());
 
   const update = (l: Lang) => {
-    localStorage.setItem("lang", l);
+    saveLanguage(l);
     setLang(l);
   };
 
