@@ -11,6 +11,10 @@
   --color-success: #22c55e;
   --color-danger: #ef4444;
   --color-muted: #6b7280;
+  --color-gradient-primary: linear-gradient(90deg, #FF6B6B, #FFB347);
+  --color-gradient-primary-soft: linear-gradient(90deg,
+      color-mix(in oklch, #FF6B6B 70%, black),
+      color-mix(in oklch, #FFB347 70%, black));
 
   /* Font */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
@@ -27,6 +31,7 @@
 }
 
 @layer components {
+
   /* --- BUTTONS --- */
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150;
@@ -36,6 +41,23 @@
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-primary text-white hover:bg-primary-soft;
   }
 
+  /* [linear-gradient(90deg,#FF6B6B,#FFB347)] */
+
+  /* .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 text-white border-2 border-transparent;
+    background: var(--color-gradient-primary);
+  }
+
+  .btn-primary:hover {
+    @apply border-white bg-primary-soft;
+  }
+
+  .btn-primary:active {
+    @apply scale-95 shadow-lg;
+    background: var(--color-gradient-primary-soft);
+  } */
+
+  /* bg-[linear-gradient(90deg,#FF6B6B,#FFB347)] */
   .btn-ghost {
     @apply inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-colors duration-150 bg-transparent text-primary hover:bg-primary/10;
   }
