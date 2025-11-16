@@ -47,6 +47,43 @@ export const dictionary = {
     es: "Puntuaciones",
   },
 
+    "quiz.finishedTitle": {
+    en: "Match finished 🎉",
+    it: "Partita conclusa 🎉",
+    es: "Partida terminada 🎉",
+  },
+
+  "quiz.finalScore": {
+    en: "{player}, you scored {score}/{total}",
+    it: "{player}, hai totalizzato {score}/{total}",
+    es: "{player}, has conseguido {score}/{total}",
+  },
+
+  "quiz.retrySubtitle": {
+    en: "Do you want to try again to improve your score?",
+    it: "Vuoi ritentare per scalare la classifica?",
+    es: "¿Quieres intentarlo de nuevo para subir en la clasificación?",
+  },
+
+  "quiz.playAgain": {
+    en: "Play again",
+    it: "Rigioca",
+    es: "Jugar de nuevo",
+  },
+
+  "quiz.myProfile": {
+    en: "Go to my profile",
+    it: "Vai al mio profilo",
+    es: "Ir a mi perfil",
+  },
+
+  "quiz.highScores": {
+    en: "View leaderboard",
+    it: "Vedi classifica",
+    es: "Ver clasificación",
+  },
+
+
   "quiz.timeLeft": {
     en: "Time left",
     it: "Tempo rimasto",

@@ -3,7 +3,7 @@ import AppLayout from "./app/AppLayout";
 import { getCurrentPlayer } from "./storage/playerStorage";
 import LoginPage from "./pages/LoginPage";
 import { RequirePlayer } from "./app/guards/RequirePlayer";
-import QuizPage from "./pages/QuizPage";
+import QuizPage from "./pages/quizPage/QuizPage";
 import UserPage from "./pages/UserPage";
 import HighScoresPage from "./pages/HighScoresPage";
 

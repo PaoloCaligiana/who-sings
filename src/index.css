@@ -142,6 +142,51 @@
   }
 
 
+  /* BADGES */
+.badge-primary {
+  @apply px-3 py-1 rounded-full text-sm bg-surface-dark text-primary border border-primary/40;
+}
+
+.badge-streak {
+  @apply px-3 py-1 rounded-full text-sm font-semibold bg-orange-500/30 text-orange-200 border border-orange-400;
+}
+
+/* LYRIC BOX */
+.lyric-box {
+  @apply mt-2 mb-4 p-3 rounded-xl italic text-lg border border-white/5;
+  background: var(--color-gradient-primary-soft);
+}
+
+/* PROGRESS BAR */
+.progress-track {
+  @apply w-full h-2 mt-1 rounded-full bg-surface-dark overflow-hidden;
+}
+
+.progress-fill {
+  @apply h-full rounded-full transition-all duration-300;
+  background: var(--color-gradient-primary);
+}
+
+/* ANSWER BUTTONS */
+.btn-answer {
+  @apply w-full text-left px-4 py-2 rounded-full font-semibold 
+         bg-surface-dark border border-surface-dark text-white 
+         transition-all hover:bg-surface;
+}
+
+.btn-answer-correct {
+  @apply w-full text-left px-4 py-2 rounded-full font-semibold 
+         bg-success/20 border-success/40 text-success;
+}
+
+.btn-answer-wrong {
+  @apply w-full text-left px-4 py-2 rounded-full font-semibold 
+         bg-danger/20 border-danger/40 text-danger;
+}
+
+
+
+
   /* --- MINI UTILS --- */
   .flag {
     @apply text-lg;
