@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useLang } from "../i18n/LangContext";
 import { LANGS } from "../i18n/dictionary";
 
-
-
 export function LanguageSwitcher() {
   const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
@@ -12,18 +10,29 @@ export function LanguageSwitcher() {
 
   return (
     <div className="relative inline-block text-left">
-      {/* TRIGGER */}
+      {/* Trigger */}
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((o) => !o)}
         className="lang-trigger"
       >
         <span className="flag">{current.flag}</span>
-        <span>{current.label}</span>
+        <span>{current.code.toUpperCase()}</span>
+        <svg
+          className={`w-3 h-3 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
 
-      {/* MENU */}
+      {/* Dropdown */}
       {open && (
-        <div className="dropdown">
+        <div className="dropdown animate-fadeIn">
           {LANGS.map((item) => (
             <button
               key={item.code}
@@ -44,7 +53,7 @@ export function LanguageSwitcher() {
         </div>
       )}
 
-      {/* CLICK OUTSIDE */}
+      {/* Click outside */}
       {open && (
         <div
           className="fixed inset-0 z-10"

@@ -17,12 +17,16 @@ export default function Navbar() {
 
     return (
         <header className="w-full px-5 py-2 flex justify-between items-center bg-black/20 backdrop-blur-sm">
+            {/* Tutto a sinistra */}
             <div className="font-bold text-xl">Who Sings?</div>
-            <LanguageSwitcher />
+
             <nav className="flex items-center gap-4">
+                {/* Centrali */}
                 <Link className="nav-link" to="/quiz">{translate('navbar.play', lang)}</Link>
                 <Link className="nav-link" to="/highscores">{translate('navbar.highScores', lang)}</Link>
 
+                {/* Tutto a destra */}
+                <LanguageSwitcher />
                 {player && (
                     <>
                         <Link className="nav-link" to="/me">{player}</Link>
