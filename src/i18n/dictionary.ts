@@ -47,7 +47,7 @@ export const dictionary = {
     es: "Puntuaciones",
   },
 
-    "quiz.finishedTitle": {
+  "quiz.finishedTitle": {
     en: "Match finished 🎉",
     it: "Partita conclusa 🎉",
     es: "Partida terminada 🎉",
@@ -83,7 +83,6 @@ export const dictionary = {
     es: "Ver clasificación",
   },
 
-
   "quiz.timeLeft": {
     en: "Time left",
     it: "Tempo rimasto",
@@ -94,6 +93,30 @@ export const dictionary = {
     en: "Score",
     it: "Punteggio",
     es: "Puntuación",
+  },
+
+  "highscores.title": {
+    en: "Leaderboard 👑",
+    it: "Classifica 👑",
+    es: "Clasificación 👑",
+  },
+
+  "highscores.subtitle": {
+    en: "Best players on this device.",
+    it: "Migliori giocatori su questo dispositivo.",
+    es: "Mejores jugadores en este dispositivo.",
+  },
+
+  "highscores.empty": {
+    en: "No scores recorded. Play a match to appear on the leaderboard!",
+    it: "Nessun punteggio registrato. Gioca una partita per apparire in classifica!",
+    es: "No hay puntuaciones registradas. ¡Juega una partida para aparecer en la clasificación!",
+  },
+
+  "highscores.position": {
+    en: "#{pos} ",
+    it: "#{pos} ",
+    es: "#{pos} ",
   },
 } as const;
 

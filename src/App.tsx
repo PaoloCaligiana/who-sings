@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "./app/AppLayout";
 import { getCurrentPlayer } from "./storage/playerStorage";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/loginPage/LoginPage";
 import { RequirePlayer } from "./app/guards/RequirePlayer";
 import QuizPage from "./pages/quizPage/QuizPage";
 import UserPage from "./pages/UserPage";
-import HighScoresPage from "./pages/HighScoresPage";
+import HighScoresPage from "./pages/highScoresPage/HighScoresPage";
 
 
 export default function App() {

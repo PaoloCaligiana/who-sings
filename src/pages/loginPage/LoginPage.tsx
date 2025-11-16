@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { translate } from "../i18n/dictionary";
-import { useLang } from "../i18n/LangContext";
-import { useLogin } from "../hooks/useLogin";
+import { translate } from "../../i18n/dictionary";
+import { useLang } from "../../i18n/LangContext";
+import { useLogin } from "../../hooks/useLogin";
 
 export default function LoginPage() {
   const { lang } = useLang();
