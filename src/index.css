@@ -151,21 +151,32 @@
     @apply px-3 py-1 rounded-full text-sm font-semibold bg-orange-500/30 text-orange-200 border border-orange-400;
   }
 
-  /* LYRIC BOX */
+  /* LYRIC BOX (unchanged except relative positioning) */
   .lyric-box {
-    @apply mt-2 mb-4 p-3 rounded-xl italic text-lg border border-white/5;
+    @apply mt-2 mb-4 p-3 rounded-xl italic text-lg relative overflow-hidden;
     background: var(--color-gradient-primary-soft);
   }
 
+  /* PROGRESS FILL INSIDE LYRIC BOX */
+  .lyric-progress {
+    @apply absolute left-0 top-0 h-full;
+    background: var(--color-gradient-primary);
+    opacity: 0.9;
+    /* transition: width 1s linear; */
+    transition-property: width;
+    transition-timing-function: linear;
+    /* smooth + continuo */
+  }
+
   /* PROGRESS BAR */
-  .progress-track {
+  /* .progress-track {
     @apply w-full h-2 mt-1 rounded-full bg-surface-dark overflow-hidden;
   }
 
   .progress-fill {
     @apply h-full rounded-full transition-all duration-300;
     background: var(--color-gradient-primary);
-  }
+  } */
 
   /* ANSWER BUTTONS */
   .btn-answer {

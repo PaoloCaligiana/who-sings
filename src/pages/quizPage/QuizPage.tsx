@@ -174,34 +174,37 @@ export default function QuizPage() {
 
         {/* Lyric */}
 
-        <div className="lyric-box">
-          {currentQuestion ? (
-            <span className="opacity-100 transition-opacity duration-300">
-              “{currentQuestion.lyricLine}”
-            </span>
-          ) : (
-            <span className="opacity-40 text-muted">...</span>
-          )}
+        <div className="lyric-box relative overflow-hidden">
+          {/* Progress layer */}
+          <div
+            className="lyric-progress"
+            style={{
+              width: `${(timeLeft / QUESTION_TIME) * 100}%`,
+              transitionDuration: timeLeft === QUESTION_TIME ? "0.15s" : "1s",
+            }}
+          />
+
+          {/* Lyric text */}
+          <span className="relative z-10 transition-opacity duration-300">
+            “{currentQuestion?.lyricLine ?? "..."}”
+          </span>
         </div>
 
         {/* Timer */}
 
-        {status === "answering" && (
-          <div className="mb-3">
-            <p className="text-xs text-muted">Tempo rimasto: {timeLeft}s</p>
+        <div className="mb-3">
+          <p className="text-xs text-muted">Tempo rimasto: {timeLeft}s</p>
 
-            <div className="progress-track">
-              <div
-                className="progress-fill"
-                style={{
-                  width: `${(timeLeft / QUESTION_TIME) * 100}%`,
-                }}
-              />
-            </div>
-          </div>
-        )}
+          {/* <div className="progress-track">
+            <div
+              className="progress-fill"
+              style={{
+                width: `${(timeLeft / QUESTION_TIME) * 100}%`,
+              }}
+            />
+          </div> */}
+        </div>
 
-        {/* Options */}
         <div className="flex flex-col gap-2 mt-2">
           {currentQuestion?.options.map((artist) => {
             const isSelected = selectedOption === artist;
@@ -221,7 +224,7 @@ export default function QuizPage() {
                 key={artist}
                 disabled={status !== "answering"}
                 onClick={() => handleAnswer(artist)}
-                className={`${className} ${status === "answering" ? "hover:-translate-y-[1px]" : ""}`}
+                className={`${className} ${status === "answering" ? "hover:-translate-y-px" : ""}`}
               >
                 {artist}
               </button>
