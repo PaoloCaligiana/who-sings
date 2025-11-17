@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getCurrentPlayer } from "../../storage/playerStorage";
-// import { useCountdown } from "../../hooks/useCountdown";
 import type { QuizCard } from "../../types";
 import { DEMO_QUESTIONS } from "../../data/quizData";
 import QuizResult from "./QuizResult";
