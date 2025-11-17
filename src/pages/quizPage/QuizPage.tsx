@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { getCurrentPlayer } from "../../storage/playerStorage";
-import { useCountdown } from "../../hooks/useCountdown";
+// import { useCountdown } from "../../hooks/useCountdown";
 import type { QuizCard } from "../../types";
 import { DEMO_QUESTIONS } from "../../data/quizData";
 import QuizResult from "./QuizResult";
 import { globalScoresStorage } from "../../storage/globalScoresStorage";
 import { currentScoresStorage } from "../../storage/currentScoresStorage";
+import { useQuestionTimer } from "../../hooks/useQuestionTimer";
+
 
 const TOTAL_QUESTIONS = 7;
-const QUESTION_TIME = 10;
+const QUESTION_TIME = 7;
 
 export default function QuizPage() {
   const playerName = getCurrentPlayer()!;
@@ -55,7 +57,7 @@ export default function QuizPage() {
   const handleTimeout = () => {
     setStreak(0);
     setStatus("feedback");
-    setTimeout(goNextQuestion, 200);
+    setTimeout(goNextQuestion, 800);
   };
 
 
@@ -64,12 +66,12 @@ export default function QuizPage() {
   /* -------------------------------------------------------------------------- */
 
 
-  const timeLeft = useCountdown(
-    status === "answering" ? QUESTION_TIME : 0,
-    () => {
-      if (status === "answering") handleTimeout();
-    }
-  );
+  const { timeLeft } = useQuestionTimer({
+    duration: QUESTION_TIME,
+    active: status === "answering",
+    onExpire: handleTimeout,
+  });
+
 
   /* -------------------------------------------------------------------------- */
   /*                            CARICAMENTO INIZIALE                              */
@@ -86,7 +88,9 @@ export default function QuizPage() {
     setCurrentQuestion(q);
     setSelectedOption(null);
     setStatus("answering");
+
   }, [questionIndex]);
+
 
 
   useEffect(() => {
@@ -118,7 +122,7 @@ export default function QuizPage() {
 
     setStatus("feedback");
 
-    setTimeout(goNextQuestion, 1300);
+    setTimeout(goNextQuestion, 800);
   };
 
   /* ========================================================================== */
@@ -218,8 +222,7 @@ export default function QuizPage() {
                 key={artist}
                 disabled={status !== "answering"}
                 onClick={() => handleAnswer(artist)}
-                className={`${className} ${status === "answering" ? "hover:-translate-y-[1px]" : ""
-                  }`}
+                className={`${className} ${status === "answering" ? "hover:-translate-y-[1px]" : ""}`}
               >
                 {artist}
               </button>
