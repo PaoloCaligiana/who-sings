@@ -1,5 +1,5 @@
 import { getCurrentPlayer } from "../../storage/playerStorage";
-import { getResultsForPlayer } from "../../storage/scoresStorage";
+import { currentScoresStorage } from "../../storage/currentScoresStorage";
 import { translate } from "../../i18n/dictionary";
 import { useLang } from "../../i18n/LangContext";
 import type { GameResult } from "../../types";
@@ -8,10 +8,10 @@ type ExtendedGameResult = GameResult & { maxStreak?: number };
 
 
 export default function UserPage() {
-  const { lang } = useLang();                                  // lingua corrente
+  const { lang } = useLang();
 
-  const playerName = getCurrentPlayer()!;                      // nome giocatore corrente
-  const results = getResultsForPlayer(playerName).sort((a, b) =>
+  const playerName = getCurrentPlayer()!;
+  const results = currentScoresStorage.getResultsForPlayer(playerName).sort((a, b) =>
     b.createdAt.localeCompare(a.createdAt)
   );                                                           // risultati ordinati dal più recente
   const last10 = results.slice(0, 10);                         // ultime 10 partite
@@ -119,7 +119,7 @@ export default function UserPage() {
           <div>
 
             {last10.map((r, index) => (
-              <div key={r.id}>
+              <div key={index}>
 
                 {/* divider tra gli elementi */}
                 {index > 0 && <div className="divider"></div>}

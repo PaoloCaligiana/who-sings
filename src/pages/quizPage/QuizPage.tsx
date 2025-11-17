@@ -4,6 +4,8 @@ import { useCountdown } from "../../hooks/useCountdown";
 import type { QuizCard } from "../../types";
 import { DEMO_QUESTIONS } from "../../data/quizData";
 import QuizResult from "./QuizResult";
+import { globalScoresStorage } from "../../storage/globalScoresStorage";
+import { currentScoresStorage } from "../../storage/currentScoresStorage";
 
 const TOTAL_QUESTIONS = 7;
 const QUESTION_TIME = 10;
@@ -23,22 +25,19 @@ export default function QuizPage() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
 
+
+
   /* -------------------------------------------------------------------------- */
   /*                               FUNZIONI DI GIOCO                             */
   /* -------------------------------------------------------------------------- */
 
-  const loadQuestion = () => {
-    const q = DEMO_QUESTIONS[questionIndex];
-    setCurrentQuestion(q);
-    setSelectedOption(null);
-    setStatus("answering");
-  };
+
 
   const startQuiz = () => {
     setQuestionIndex(0);
     setScore(0);
     setStreak(0);
-    loadQuestion();
+    setStatus("answering");
   };
 
   /** Gestisce il passaggio alla domanda successiva */
@@ -48,9 +47,7 @@ export default function QuizPage() {
       setStatus("finished");
       return;
     }
-
     setQuestionIndex((i) => i + 1);
-    loadQuestion();
   };
 
   /** Timeout della domanda */
@@ -58,7 +55,7 @@ export default function QuizPage() {
   const handleTimeout = () => {
     setStreak(0);
     setStatus("feedback");
-    setTimeout(goNextQuestion, 800);
+    setTimeout(goNextQuestion, 200);
   };
 
 
@@ -83,6 +80,27 @@ export default function QuizPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
   }, []);
+
+  useEffect(() => {
+    const q = DEMO_QUESTIONS[questionIndex];
+    setCurrentQuestion(q);
+    setSelectedOption(null);
+    setStatus("answering");
+  }, [questionIndex]);
+
+
+  useEffect(() => {
+    if (status === "finished") {
+      const gameResult = {
+        playerName,
+        score, totalQuestions: TOTAL_QUESTIONS, createdAt: new Date().toISOString()
+      };
+
+      globalScoresStorage.saveGameResult(gameResult);
+      currentScoresStorage.saveGameResult(gameResult);
+    }
+  }, [status]);
+
 
   /* -------------------------------------------------------------------------- */
   /*                                  RISPOSTA                                   */
@@ -109,12 +127,12 @@ export default function QuizPage() {
 
   if (status === "finished") {
     return (
-     <QuizResult
+      <QuizResult
         playerName={playerName}
         score={score}
         totalQuestions={TOTAL_QUESTIONS}
         startQuiz={startQuiz}
-      />  
+      />
     );
   }
 

@@ -9,7 +9,6 @@ export interface QuizCard {
 }
 
 export interface GameResult {
-  id: string;
   playerName: PlayerName;
   score: number;
   totalQuestions: number;
