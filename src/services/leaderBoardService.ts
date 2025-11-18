@@ -1,5 +1,5 @@
 import { globalScoresStorage } from "../storage/globalScoresStorage";
-import type { LeaderboardStrategy } from "./leaderBoardStrategies";
+import type { LeaderboardStrategy } from "./leaderboardStrategies";
 
 export function getLeaderboard(strategy: LeaderboardStrategy, limit = 10) {
   const results = globalScoresStorage.getAllResults();

@@ -1,5 +1,6 @@
-import { translate } from "../../i18n/dictionary";
+
 import { useLang } from '../../i18n/LangContext';
+import { translate } from '../../i18n/utils';
 
 type QuizResultProps = {
     playerName: string;

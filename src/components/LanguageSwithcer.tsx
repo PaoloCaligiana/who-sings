@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLang } from "../i18n/LangContext";
-import { LANGS } from "../i18n/dictionary";
+import { LANGS } from "../i18n/constants";
 
 export function LanguageSwitcher() {
   const { lang, setLang } = useLang();

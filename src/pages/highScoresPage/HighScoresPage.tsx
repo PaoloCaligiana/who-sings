@@ -1,6 +1,6 @@
-import { translate } from "../../i18n/dictionary";
 import { useLang } from "../../i18n/LangContext";
-import { bestScorePerPlayer } from "../../services/leaderBoardStrategies";
+import { translate } from "../../i18n/utils";
+import { bestScorePerPlayer } from "../../services/leaderboardStrategies";
 import { getLeaderboard } from "../../services/leaderBoardService";
 
 export default function HighScoresPage() {

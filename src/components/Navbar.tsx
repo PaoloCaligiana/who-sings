@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { getCurrentPlayer, logoutPlayer } from '../storage/playerStorage';
 import { useLang } from '../i18n/LangContext';
 import { LanguageSwitcher } from './LanguageSwithcer';
-import { translate } from '../i18n/dictionary';
+import { translate } from '../i18n/utils';
 
 export default function Navbar() {
     const { lang } = useLang();

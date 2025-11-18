@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { translate } from "../../i18n/dictionary";
+import { translate } from "../../i18n/utils";
 import { useLang } from "../../i18n/LangContext";
 import { useLogin } from "../../hooks/useLogin";
 
