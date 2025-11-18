@@ -14,3 +14,25 @@ export interface GameResult {
   totalQuestions: number;
   createdAt: string; // ISO
 }
+
+export interface ChartTrackEntry {
+  commontrack_id: number;
+  artist_name: string;
+  track_name: string;
+  music_genre_name: string;
+}
+
+export interface MusixmatchTrackApiItem {
+  track: {
+    commontrack_id: number;
+    track_name: string;
+    artist_name: string;
+    primary_genres?: {
+      music_genre_list?: {
+        music_genre: {
+          music_genre_name: string;
+        };
+      }[];
+    };
+  };
+}
