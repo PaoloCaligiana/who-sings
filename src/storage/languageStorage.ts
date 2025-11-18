@@ -1,10 +1,8 @@
-import { supportedLangs, type Lang } from "../i18n/dictionary";
+import type { Lang } from "../i18n/constants";
+import { isValidLang } from "../i18n/utils";
 
 const LANGUAGE_KEY = "who-sings-language";
 
-function isLanguage(x: unknown): x is Lang {
-  return supportedLangs.includes(x as Lang);
-}
 
 export function saveLanguage(lang: Lang) {
   localStorage.setItem(LANGUAGE_KEY, lang);
@@ -12,5 +10,5 @@ export function saveLanguage(lang: Lang) {
 
 export function getSavedLanguage(): Lang {
   const raw = localStorage.getItem(LANGUAGE_KEY);
-  return isLanguage(raw) ? raw : "en";
+  return isValidLang(raw) ? raw : "en";
 }

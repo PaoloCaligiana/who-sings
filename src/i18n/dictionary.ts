@@ -1,15 +1,3 @@
-export const LANGS = [
-  { code: "en", label: "English", flag: "🇬🇧" },
-  { code: "it", label: "Italiano", flag: "🇮🇹" },
-  { code: "es", label: "Español", flag: "🇪🇸" },
-] as const;
-
-// derived type Lang from LANGS
-export type Lang = (typeof LANGS)[number]["code"];
-
-// derived runtime array for validation
-export const supportedLangs = LANGS.map((l) => l.code);
-
 export const dictionary = {
   "login.title": {
     en: "Welcome to Who Sings 🎵",
@@ -119,7 +107,7 @@ export const dictionary = {
     es: "#{pos} ",
   },
 
-    "userpage.title": {
+  "userpage.title": {
     en: "Hi, {player} 👋",
     it: "Ciao, {player} 👋",
     es: "Hola, {player} 👋",
@@ -178,11 +166,4 @@ export const dictionary = {
     it: "Nessuna partita giocata ancora. Vai a provare il quiz!",
     es: "Aún no has jugado ninguna partida. ¡Prueba el quiz!",
   },
-
-
-
 } as const;
-
-export function translate(key: keyof typeof dictionary, lang: Lang): string {
-  return dictionary[key]?.[lang] ?? key;
-}

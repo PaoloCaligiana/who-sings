@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
-import type { Lang } from "./dictionary";
-
+import type { Lang } from "./constants";
 interface LangContextType {
   lang: Lang;
   setLang: (lang: Lang) => void;
