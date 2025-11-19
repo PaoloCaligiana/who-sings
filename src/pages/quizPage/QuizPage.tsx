@@ -5,7 +5,7 @@ import { globalScoresStorage } from "../../storage/globalScoresStorage";
 import { currentScoresStorage } from "../../storage/currentScoresStorage";
 import { useQuestionTimer } from "../../hooks/useQuestionTimer";
 import LoadingScreen from "./LoadingScreen";
-import StartScreen from "./StartScreen";
+import QuizStartScreen from "./QuizStartScreen";
 import QuizResultScreen from "./QuizResultScreen";
 import QuizGameScreen from "./QuizGameScreen";
 import { preloadQuizCards } from "../../api/quizGenerator";
@@ -172,7 +172,7 @@ export default function QuizPage() {
 
   if (status === "error") return <QuizErrorScreen errorMessage={errorMessage} reloadQuiz={reloadQuiz} />;
 
-  if (status === "ready") return <StartScreen onStart={startGame} questionsCount={questions.length} />;
+  if (status === "ready") return <QuizStartScreen onStart={startGame} questionsCount={questions.length} />;
 
 
   /* ========================================================================== */
