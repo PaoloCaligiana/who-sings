@@ -11,7 +11,7 @@ type QuizResultProps = {
     isLegendary?: boolean;
     canContinue?: boolean; // Se in infinite e ha completato tutte le domande senza errori
     onContinue?: () => void;
-    onSaveAndQuit?: () => void;
+    onSwitchMode: () => void;
 };
 
 export default function QuizResult({ 
@@ -23,7 +23,7 @@ export default function QuizResult({
     isLegendary = false,
     canContinue = false,
     onContinue,
-    onSaveAndQuit
+    // onSwitchMode
 }: QuizResultProps) {
     const { lang } = useLang();
 
@@ -56,9 +56,10 @@ export default function QuizResult({
                             <button className="btn-primary" onClick={onContinue}>
                                 🔥 Continue (Next Round)
                             </button>
-                            <button className="btn-surface" onClick={onSaveAndQuit}>
-                                💾 Save & Quit
-                            </button>
+                            
+                            {/* <button className="btn-surface" onClick={onSwitchMode}>
+                                {isInfiniteMode ? "Go Normal Mode" : "Go Infinity Mode"}
+                            </button> */}
                         </>
                     ) : (
                         <>

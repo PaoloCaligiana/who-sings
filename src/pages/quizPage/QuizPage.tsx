@@ -69,7 +69,7 @@ export default function QuizPage() {
 
   if (quiz.status === "error") return <QuizErrorScreen errorMessage={quiz.errorMessage} reloadQuiz={quiz.reloadQuiz} />;
 
-  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} questionsCount={quiz.questions.length} isInfiniteMode={mode === "infinite"} />;
+  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} onSwitchMode={quiz.switchMode} questionsCount={quiz.questions.length} isInfiniteMode={mode === "infinite"} />;
 
   /* ========================================================================== */
   /*                            RENDER: QUIZ FINITO                              */
@@ -90,7 +90,7 @@ export default function QuizPage() {
         isLegendary={false}
         canContinue={canContinue}
         onContinue={canContinue ? quiz.continueInfinite : undefined}
-        onSaveAndQuit={isInfinite ? quiz.saveAndQuit : undefined}
+        onSwitchMode={quiz.switchMode}
       />
     );
   }

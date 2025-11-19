@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { QuizCard } from "../types";
 import { preloadQuizCards } from "../api/quizGenerator";
-import { getInfiniteProgress, saveInfiniteProgress, clearInfiniteProgress } from "../storage/quizSessionStorage";
+import { getInfiniteProgress, saveInfiniteProgress, clearInfiniteProgress, saveQuizMode } from "../storage/quizSessionStorage";
 
 type QuizStatus = "loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error";
 
@@ -11,12 +11,10 @@ type UseQuizEngineOptions = {
 };
 
 export function useQuizEngine(options: UseQuizEngineOptions | number) {
-  const config = typeof options === "number" 
-    ? { totalQuestions: options, finishOnWrongAnswer: false }
-    : options;
-  
+  const config = typeof options === "number" ? { totalQuestions: options, finishOnWrongAnswer: false } : options;
+
   const { totalQuestions, finishOnWrongAnswer } = config;
-  
+
   const [questions, setQuestions] = useState<QuizCard[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<QuizCard | null>(null);
@@ -25,7 +23,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const [status, setStatus] = useState<QuizStatus>("loadingQuestions");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  
+
   // Infinite mode specifics
   const [infiniteRound, setInfiniteRound] = useState(1);
   const [cumulativeScore, setCumulativeScore] = useState(0);
@@ -49,7 +47,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
             setMaxStreak(savedProgress.maxStreak || savedProgress.streak); // Compatibilità con vecchi save
           }
         }
-        
+
         const qs = await preloadQuizCards(totalQuestions);
         setQuestions(qs);
         setStatus("ready");
@@ -70,7 +68,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const reloadQuiz = () => {
     setStatus("loadingQuestions");
     setErrorMessage("");
-    
+
     // Reset infinite progress
     if (finishOnWrongAnswer) {
       clearInfiniteProgress();
@@ -100,18 +98,18 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     setCumulativeScore(newCumulativeScore);
     const newRound = infiniteRound + 1;
     setInfiniteRound(newRound);
-    
+
     // Aggiorna maxStreak se necessario
     const newMaxStreak = Math.max(maxStreak, streak);
     setMaxStreak(newMaxStreak);
-    
+
     saveInfiniteProgress({
       score: newCumulativeScore,
       streak, // Mantieni streak corrente per il prossimo round
       maxStreak: newMaxStreak,
-      round: newRound
+      round: newRound,
     });
-    
+
     // Ricarica domande
     setStatus("loadingQuestions");
     setScore(0); // Reset score del round corrente
@@ -130,10 +128,15 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     loadNext();
   };
 
-  /** Salva e termina sessione infinite */
-  const saveAndQuit = () => {
-    clearInfiniteProgress();
-    setStatus("finished");
+  /* Cambia modalita' da normale a infinite e viceversa */
+  const switchMode = () => {
+    if (finishOnWrongAnswer) {
+      clearInfiniteProgress();
+      saveQuizMode("normal");
+    } else {
+      saveQuizMode("infinite");
+    }
+    setStatus("loadingQuestions");
   };
 
   /** Inizia il quiz con le domande già caricate */
@@ -168,7 +171,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const handleTimeout = () => {
     setStreak(0);
     setStatus("feedback");
-    
+
     // In modalità infinita, timeout = errore = fine gioco
     if (finishOnWrongAnswer) {
       clearInfiniteProgress();
@@ -218,7 +221,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     status,
     errorMessage,
     selectedOption,
-    
+
     // Infinite mode state
     infiniteRound,
     cumulativeScore,
@@ -231,6 +234,6 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     handleTimeout,
     reloadQuiz,
     continueInfinite,
-    saveAndQuit,
+    switchMode,
   };
 }

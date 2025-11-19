@@ -5,9 +5,10 @@ type StartScreenProps = {
   questionsCount: number;
   onStart: () => void;
   isInfiniteMode?: boolean;
+  onSwitchMode: () => void;
 };
 
-export default function QuizStartScreen({ questionsCount, onStart, isInfiniteMode = false }: StartScreenProps) {
+export default function QuizStartScreen({ questionsCount, onStart, isInfiniteMode = false, onSwitchMode }: StartScreenProps) {
   const { lang } = useLang();
 
   return (
@@ -27,6 +28,9 @@ export default function QuizStartScreen({ questionsCount, onStart, isInfiniteMod
         onClick={onStart}
       >
         {translate("quiz.startQuiz", lang)}
+      </button>
+      <button className="btn-surface" onClick={onSwitchMode}>
+        {isInfiniteMode ? "Go Normal Mode" : "Go Infinity Mode"}
       </button>
     </div>
   );
