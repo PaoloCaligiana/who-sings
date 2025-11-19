@@ -63,10 +63,7 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
 
   // Load lyrics
   const lyrics = await fetchLyricsByCommontrack(correctTrack.commontrack_id);
-  if (!lyrics) {
-    console.warn("No lyrics found for track:", correctTrack.track_name);
-    return null;
-  }
+  if (!lyrics) return null;
 
   const lines = cleanLyrics(lyrics);
   if (lines.length < 2) return null;
@@ -96,8 +93,15 @@ export async function preloadQuizCards(n: number, artistName?: string, musicGenr
     const card = await generateQuizCard(artistName, musicGenre, country);
     if (card) cards.push(card);
   }
-  if (cards.length < n) {
-    console.warn(`Loaded only ${cards.length}/${n} questions after ${attempts} attempts`);
+  // Se non si è riusciti a generare nemmeno una domanda, è un errore critico
+  if (cards.length === 0) {
+    throw new Error("Failed to generate any quiz questions. Check API connectivity or data availability.");
   }
+
+  // Warning se non si è raggiunto il target richiesto
+  if (cards.length < n) {
+    console.warn(`Generated only ${cards.length}/${n} questions after ${attempts} attempts`);
+  }
+
   return cards;
 }

@@ -8,7 +8,8 @@ import LoadingScreen from "./LoadingScreen";
 import StartScreen from "./StartScreen";
 import QuizResultScreen from "./QuizResultScreen";
 import QuizGameScreen from "./QuizGameScreen";
-import { preloadQuizCards } from "../../api/quizGenerator"; 
+import { preloadQuizCards } from "../../api/quizGenerator";
+import QuizErrorScreen from "./QuizErrorScreen";
 
 
 const TOTAL_QUESTIONS = 7;
@@ -25,7 +26,9 @@ export default function QuizPage() {
   const [streak, setStreak] = useState(0);
 
   const [status, setStatus] =
-    useState<"loadingQuestions" | "ready" | "answering" | "feedback" | "finished">("loadingQuestions");
+    useState<"loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error">("loadingQuestions");
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -39,12 +42,18 @@ export default function QuizPage() {
   /** Ricarica le domande dall'inizio (per "Gioca ancora") */
   const reloadQuiz = () => {
     setStatus("loadingQuestions");
+    setErrorMessage("");
 
     // Ricarica le domande
     async function reload() {
-      const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-      setQuestions(qs);
-      setStatus("ready");
+      try {
+        const qs = await preloadQuizCards(TOTAL_QUESTIONS);
+        setQuestions(qs);
+        setStatus("ready");
+      } catch (err) {
+        setErrorMessage(err instanceof Error ? err.message : "Failed to load quiz questions");
+        setStatus("error");
+      }
     }
 
     reload();
@@ -103,9 +112,14 @@ export default function QuizPage() {
   useEffect(() => {
     async function loadQuestions() {
       setStatus("loadingQuestions");
-      const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-      setQuestions(qs);
-      setStatus("ready"); 
+      try {
+        const qs = await preloadQuizCards(TOTAL_QUESTIONS);
+        setQuestions(qs);
+        setStatus("ready");
+      } catch (err) {
+        setErrorMessage(err instanceof Error ? err.message : "Failed to load quiz questions");
+        setStatus("error");
+      }
     }
 
     loadQuestions();
@@ -151,10 +165,12 @@ export default function QuizPage() {
 
 
   /* ========================================================================== */
-  /*                       RENDER: LOADING / START BUTTON                        */
+  /*                       RENDER: LOADING / START BUTTON / ERROR               */
   /* ========================================================================== */
 
   if (status === "loadingQuestions") return <LoadingScreen />;
+
+  if (status === "error") return <QuizErrorScreen errorMessage={errorMessage} reloadQuiz={reloadQuiz} />;
 
   if (status === "ready") return <StartScreen onStart={startGame} questionsCount={questions.length} />;
 
