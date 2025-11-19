@@ -3,13 +3,14 @@ import type { ChartTrackEntry, QuizCard } from "../types";
 import { fetchLyricsByCommontrack } from "./musixMatchApi";
 import { getOrLoadChartTracks } from "./musixmatchService";
 
-/* -------------------------
-   CACHE IN-MEMORY
---------------------------- */
+
+const QUIZ_OPTIONS_COUNT = 3; // Numero di opzioni per domanda
+const MAX_ATTEMPT_MULTIPLIER = 5; // Tentativi massimi = n * multiplier
 
 /* -------------------------
     UTILS
 --------------------------- */
+
 function pickRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -53,10 +54,10 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
   const finalTracks = filterTracksByArtist(filteredTracks, artistName);
 
   // Not enough tracks
-  if (finalTracks.length < 3) return null;
+  if (finalTracks.length < QUIZ_OPTIONS_COUNT) return null;
 
-  // pick 3 random tracks from finalTracks
-  const randomTracks = shuffle<ChartTrackEntry>(finalTracks).slice(0, 3);
+  // pick random tracks from finalTracks
+  const randomTracks = shuffle<ChartTrackEntry>(finalTracks).slice(0, QUIZ_OPTIONS_COUNT);
 
   const options = randomTracks.map((t) => t.artist_name);
   const correctTrack = randomTracks[0];
@@ -84,7 +85,7 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
 export async function preloadQuizCards(n: number, artistName?: string, musicGenre?: string, country?: Country): Promise<QuizCard[]> {
   const cards: QuizCard[] = [];
 
-  const MAX_ATTEMPTS = n * 5;
+  const MAX_ATTEMPTS = n * MAX_ATTEMPT_MULTIPLIER;
   let attempts = 0;
 
   while (cards.length < n && attempts < MAX_ATTEMPTS) {

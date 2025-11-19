@@ -14,13 +14,16 @@ export function isValidCountry(x: unknown): x is Country {
 }
 
 export function getLangByCountry(country: Country): Lang {
-  return LANGUAGE_CONFIGS.find(l => l.country === country)!.code;
+  const config = LANGUAGE_CONFIGS.find(l => l.country === country);
+  return config ? config.code : LANGUAGE_CONFIGS[0].code;
 }
 
 export function getCountryByLang(lang: Lang): Country {
-  return LANGUAGE_CONFIGS.find(l => l.code === lang)!.country;
+  const config = LANGUAGE_CONFIGS.find(l => l.code === lang);
+  return config ? config.country : LANGUAGE_CONFIGS[0].country;
 }
 
 export function getLanguageConfigByLang(lang: Lang) {
-  return LANGUAGE_CONFIGS.find(l => l.code === lang)!;
+  const config = LANGUAGE_CONFIGS.find(l => l.code === lang);
+  return config || LANGUAGE_CONFIGS[0];
 }
