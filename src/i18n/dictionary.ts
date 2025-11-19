@@ -71,6 +71,66 @@ export const dictionary = {
     es: "Ver clasificación",
   },
 
+  "quiz.errorTitle": {
+    en: "Failed to Load Quiz",
+    it: "Errore nel caricamento del quiz",
+    es: "Error al cargar el quiz",
+  },
+
+  "quiz.errorDefault": {
+    en: "An unexpected error occurred while loading the quiz.",
+    it: "Si è verificato un errore imprevisto durante il caricamento del quiz.",
+    es: "Se produjo un error inesperado al cargar el quiz.",
+  },
+
+  "quiz.tryAgain": {
+    en: "Try Again",
+    it: "Riprova",
+    es: "Intentar de nuevo",
+  },
+
+  "quiz.loadingQuestions": {
+    en: "Loading questions...",
+    it: "Caricamento domande...",
+    es: "Cargando preguntas...",
+  },
+
+  "quiz.question": {
+    en: "Question",
+    it: "Domanda",
+    es: "Pregunta",
+  },
+
+  "quiz.whoSings": {
+    en: "Who sings this line?",
+    it: "Chi canta questa frase?",
+    es: "¿Quién canta esta frase?",
+  },
+
+  "quiz.streak": {
+    en: "Streak",
+    it: "Streak",
+    es: "Racha",
+  },
+
+  "quiz.readyToStart": {
+    en: "Ready to start!",
+    it: "Pronto per iniziare!",
+    es: "¡Listo para empezar!",
+  },
+
+  "quiz.questionsLoaded": {
+    en: "{count} questions loaded",
+    it: "{count} domande caricate",
+    es: "{count} preguntas cargadas",
+  },
+
+  "quiz.startQuiz": {
+    en: "Start Quiz",
+    it: "Inizia Quiz",
+    es: "Comenzar Quiz",
+  },
+
   "quiz.timeLeft": {
     en: "Time left",
     it: "Tempo rimasto",

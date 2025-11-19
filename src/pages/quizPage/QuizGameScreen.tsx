@@ -1,3 +1,5 @@
+import { useLang } from "../../i18n/LangContext";
+import { translate } from "../../i18n/utils";
 import type { QuizCard } from "../../types";
 
 type QuizGameScreenProps = {
@@ -25,22 +27,24 @@ export default function QuizGameScreen({
     selectedOption,
     onAnswer,
 }: QuizGameScreenProps) {
+    const { lang } = useLang();
+
     return (
         <div className="w-full">
             {/* Header */}
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
                 <span className="text-sm text-muted">
-                    Domanda {questionIndex + 1} / {totalQuestions}
+                    {translate("quiz.question", lang)} {questionIndex + 1} / {totalQuestions}
                 </span>
 
                 <div className="flex items-center gap-2">
                     <span className="badge-primary">
-                        Punteggio: {score}
+                        {translate("quiz.score", lang)}: {score}
                     </span>
 
                     {streak >= 2 && (
                         <span className="badge-streak">
-                            🔥 Streak x{streak}
+                            🔥 {translate("quiz.streak", lang)} x{streak}
                         </span>
                     )}
                 </div>
@@ -49,7 +53,7 @@ export default function QuizGameScreen({
             {/* Card */}
             <div className="card">
                 <span className="text-xs uppercase tracking-wider text-muted">
-                    Chi canta questa frase?
+                    {translate("quiz.whoSings", lang)}
                 </span>
 
                 {/* Lyric */}
@@ -71,7 +75,7 @@ export default function QuizGameScreen({
 
                 {/* Timer */}
                 <div className="mb-3">
-                    <p className="text-xs text-muted">Tempo rimasto: {timeLeft}s</p>
+                    <p className="text-xs text-muted">{translate("quiz.timeLeft", lang)}: {timeLeft}s</p>
                 </div>
 
                 {/* Options */}
