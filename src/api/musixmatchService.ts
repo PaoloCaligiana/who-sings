@@ -1,17 +1,17 @@
 // musixmatchService.ts
 
-import { getCountryCode } from "../i18n/utils";
+import { getCountryByLang } from "../i18n/utils";
 import { loadChartTracks, saveChartTracks } from "../storage/chartTrucksStorage";
 import { getSavedLanguage } from "../storage/languageStorage";
 import type { ChartTrackEntry, MusixmatchTrackApiItem } from "../types";
 import { fetchChartTracks } from "./musixMatchApi";
 
 /** Ottieni le tracce più popolari per paese (cache locale → API → salva cache) */
-export async function getOrLoadChartTracks(): Promise<ChartTrackEntry[]> {
+export async function getOrLoadChartTracks(countryCode: string): Promise<ChartTrackEntry[]> {
   
-  /* Tracce piu' popolari per paese in base alla lingua scelta */
-  const country =  getCountryCode(getSavedLanguage());
-  const cached = loadChartTracks(country);
+  /* Tracce piu' popolari per paese in base al codice paese fornito o alla lingua selezionata  */
+  const country =  countryCode || getCountryByLang(getSavedLanguage());
+  const cached = loadChartTracks(country);    
   if (cached && cached.length > 0) return cached;
 
   const response = await fetchChartTracks(country);
