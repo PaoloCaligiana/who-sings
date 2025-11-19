@@ -131,11 +131,16 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   /* Cambia modalita' da normale a infinite e viceversa */
   const switchMode = () => {
     if (finishOnWrongAnswer) {
-      clearInfiniteProgress();
       saveQuizMode("normal");
     } else {
       saveQuizMode("infinite");
     }
+    clearInfiniteProgress();
+    setCumulativeScore(0);
+    setInfiniteRound(1);
+    setMaxStreak(0);
+    setStreak(0);
+
     setStatus("loadingQuestions");
   };
 
