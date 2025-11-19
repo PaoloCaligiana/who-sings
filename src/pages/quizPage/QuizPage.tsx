@@ -1,14 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getCurrentPlayer } from "../../storage/playerStorage";
-import type { QuizCard } from "../../types";
 import { globalScoresStorage } from "../../storage/globalScoresStorage";
 import { currentScoresStorage } from "../../storage/currentScoresStorage";
 import { useQuestionTimer } from "../../hooks/useQuestionTimer";
+import { useQuizEngine } from "../../hooks/useQuizEngine";
 import LoadingScreen from "./LoadingScreen";
 import QuizStartScreen from "./QuizStartScreen";
 import QuizResultScreen from "./QuizResultScreen";
 import QuizGameScreen from "./QuizGameScreen";
-import { preloadQuizCards } from "../../api/quizGenerator";
 import QuizErrorScreen from "./QuizErrorScreen";
 
 
@@ -18,122 +17,23 @@ const QUESTION_TIME = 7;
 export default function QuizPage() {
   const playerName = getCurrentPlayer()!;
 
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState<QuizCard | null>(null);
-  const [questions, setQuestions] = useState<QuizCard[]>([]); // Domande caricate
-
-  const [score, setScore] = useState(0);
-  const [streak, setStreak] = useState(0);
-
-  const [status, setStatus] =
-    useState<"loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error">("loadingQuestions");
-
-  const [errorMessage, setErrorMessage] = useState<string>("");
-
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
-
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                               FUNZIONI DI GIOCO                             */
-  /* -------------------------------------------------------------------------- */
-
-  /** Ricarica le domande dall'inizio (per "Gioca ancora") */
-  const reloadQuiz = () => {
-    setStatus("loadingQuestions");
-    setErrorMessage("");
-
-    // Ricarica le domande
-    async function reload() {
-      try {
-        const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-        setQuestions(qs);
-        setStatus("ready");
-      } catch (err) {
-        setErrorMessage(err instanceof Error ? err.message : "Failed to load quiz questions");
-        setStatus("error");
-      }
-    }
-
-    reload();
-  };
-
-  /** Inizia il quiz con le domande già caricate */
-  const startGame = () => {
-    setQuestionIndex(0);
-    setCurrentQuestion(questions[0]); // Imposta la prima domanda
-    setScore(0);
-    setStreak(0);
-    setSelectedOption(null);
-    setStatus("answering");
-  };
-
-  /** Gestisce il passaggio alla domanda successiva */
-  const goNextQuestion = () => {
-    const nextIndex = questionIndex + 1;
-
-    if (nextIndex >= TOTAL_QUESTIONS) {
-      setStatus("finished");
-      return;
-    }
-
-    setQuestionIndex(nextIndex);
-    setCurrentQuestion(questions[nextIndex]);
-    setSelectedOption(null);
-    setStatus("answering");
-  };
-
-  /** Timeout della domanda */
-
-  const handleTimeout = () => {
-    setStreak(0);
-    setStatus("feedback");
-    setTimeout(goNextQuestion, 800);
-  };
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                                  TIMER                                      */
-  /* -------------------------------------------------------------------------- */
-
+  const quiz = useQuizEngine(TOTAL_QUESTIONS);
 
   const { timeLeft } = useQuestionTimer({
     duration: QUESTION_TIME,
-    active: status === "answering",
-    onExpire: handleTimeout,
+    active: quiz.status === "answering",
+    onExpire: quiz.handleTimeout,
   });
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                            CARICAMENTO INIZIALE                              */
-  /* -------------------------------------------------------------------------- */
-
-  useEffect(() => {
-    async function loadQuestions() {
-      setStatus("loadingQuestions");
-      try {
-        const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-        setQuestions(qs);
-        setStatus("ready");
-      } catch (err) {
-        setErrorMessage(err instanceof Error ? err.message : "Failed to load quiz questions");
-        setStatus("error");
-      }
-    }
-
-    loadQuestions();
-  }, []);
 
   /* -------------------------------------------------------------------------- */
   /*                          SALVATAGGIO PUNTEGGIO                              */
   /* -------------------------------------------------------------------------- */
 
   useEffect(() => {
-    if (status === "finished") {
+    if (quiz.status === "finished") {
       const gameResult = {
         playerName,
-        score,
+        score: quiz.score,
         totalQuestions: TOTAL_QUESTIONS,
         createdAt: new Date().toISOString()
       };
@@ -141,51 +41,29 @@ export default function QuizPage() {
       globalScoresStorage.saveGameResult(gameResult);
       currentScoresStorage.saveGameResult(gameResult);
     }
-  }, [status, playerName, score]);
-
-
-  /* -------------------------------------------------------------------------- */
-  /*                                  RISPOSTA                                   */
-  /* -------------------------------------------------------------------------- */
-
-  const handleAnswer = (artist: string) => {
-    if (!currentQuestion || status !== "answering") return;
-
-    setSelectedOption(artist);
-
-    const isCorrect = artist === currentQuestion.correctArtist;
-
-    setStreak((s) => (isCorrect ? s + 1 : 0));
-    if (isCorrect) setScore((s) => s + 1);
-
-    setStatus("feedback");
-
-    setTimeout(goNextQuestion, 800);
-  };
-
+  }, [quiz.status, playerName, quiz.score]);
 
   /* ========================================================================== */
   /*                       RENDER: LOADING / START BUTTON / ERROR               */
   /* ========================================================================== */
 
-  if (status === "loadingQuestions") return <LoadingScreen />;
+  if (quiz.status === "loadingQuestions") return <LoadingScreen />;
 
-  if (status === "error") return <QuizErrorScreen errorMessage={errorMessage} reloadQuiz={reloadQuiz} />;
+  if (quiz.status === "error") return <QuizErrorScreen errorMessage={quiz.errorMessage} reloadQuiz={quiz.reloadQuiz} />;
 
-  if (status === "ready") return <QuizStartScreen onStart={startGame} questionsCount={questions.length} />;
-
+  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} questionsCount={quiz.questions.length} />;
 
   /* ========================================================================== */
   /*                            RENDER: QUIZ FINITO                              */
   /* ========================================================================== */
 
-  if (status === "finished") {
+  if (quiz.status === "finished") {
     return (
       <QuizResultScreen
         playerName={playerName}
-        score={score}
+        score={quiz.score}
         totalQuestions={TOTAL_QUESTIONS}
-        reloadQuiz={reloadQuiz}
+        reloadQuiz={quiz.reloadQuiz}
       />
     );
   }
@@ -196,14 +74,16 @@ export default function QuizPage() {
 
   return (
     <QuizGameScreen
-      questionIndex={questionIndex}
+      questionIndex={quiz.questionIndex}
       totalQuestions={TOTAL_QUESTIONS}
-      score={score} streak={streak}
-      currentQuestion={currentQuestion}
+      score={quiz.score}
+      streak={quiz.streak}
+      currentQuestion={quiz.currentQuestion}
       timeLeft={timeLeft}
       questionTime={QUESTION_TIME}
-      status={status}
-      selectedOption={selectedOption}
-      onAnswer={handleAnswer} />
-  )
+      status={quiz.status}
+      selectedOption={quiz.selectedOption}
+      onAnswer={quiz.handleAnswer}
+    />
+  );
 }
