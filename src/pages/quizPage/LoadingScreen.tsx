@@ -5,7 +5,7 @@ export default function LoadingScreen() {
     const { lang } = useLang();
 
     return (
-        <div className="flex flex-col items-center justify-center h-full gap-4">
+        <div className="flex flex-col items-center justify-center min-h-[70vh]">
             <div className="music-loader">
                 <div className="music-bar"></div>
                 <div className="music-bar"></div>

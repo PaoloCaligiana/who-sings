@@ -120,15 +120,21 @@ export const dictionary = {
   },
 
   "quiz.readyToStart": {
-    en: "Ready to start!",
-    it: "Pronto per iniziare!",
-    es: "¡Listo para empezar!",
+    en: "Ready to start?",
+    it: "Pronto per iniziare?",
+    es: "Listo para empezar?",
   },
 
   "quiz.questionsLoaded": {
     en: "{count} questions loaded",
     it: "{count} domande caricate",
     es: "{count} preguntas cargadas",
+  },
+
+  "quiz.round": {
+    en: "{count} round",
+    it: "{count} turno",
+    es: "{count} ronda",
   },
 
   "quiz.endlessModeWarning": {
