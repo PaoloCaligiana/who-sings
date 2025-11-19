@@ -7,7 +7,7 @@ import type { ChartTrackEntry, MusixmatchTrackApiItem } from "../types";
 import { fetchChartTracks } from "./musixMatchApi";
 
 /** Ottieni le tracce più popolari per paese (cache locale → API → salva cache) */
-export async function getOrLoadChartTracks(countryCode: string): Promise<ChartTrackEntry[]> {
+export async function getOrLoadChartTracks(countryCode?: string): Promise<ChartTrackEntry[]> {
   
   /* Tracce piu' popolari per paese in base al codice paese fornito o alla lingua selezionata  */
   const country =  countryCode || getCountryByLang(getSavedLanguage());

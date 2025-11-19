@@ -21,5 +21,5 @@ export async function fetchLyricsByCommontrack(commontrackId: number) {
     }
   });
 
-  return res.data.message.body.lyrics ?? null;
+  return res.data.message.body.lyrics.lyrics_body ?? null;
 }
