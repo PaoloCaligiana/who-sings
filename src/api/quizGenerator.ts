@@ -19,25 +19,37 @@ function shuffle<T>(arr: T[]): T[] {
   return [...arr].sort(() => Math.random() - 0.5);
 }
 
-function cleanLyrics(raw: string) {
-  return raw
-    .split("\n")
-    .map((l) => l.trim())
-    .filter((l) => l.length > 0)
-    .filter((l) => !l.startsWith("*"))
-    .filter((l) => !l.includes("Lorem ipsum"))
-    .filter((l) => !l.includes("This Lyrics is NOT available"))
-    .filter((l) => l.split(" ").length >= 3);
+function cleanLyrics(raw: string): string[] {
+  const lines: string[] = [];
+  
+  for (const line of raw.split("\n")) {
+    const trimmed = line.trim();
+    
+    if (trimmed.length === 0) continue;
+    if (trimmed.startsWith("*")) continue;
+    if (trimmed.includes("Lorem ipsum")) continue;
+    if (trimmed.includes("This Lyrics is NOT available")) continue;
+    if (trimmed.split(" ").length < 3) continue;
+    
+    lines.push(trimmed);
+  }
+  
+  return lines;
 }
 
-function filterTracksByGenre(tracks: ChartTrackEntry[], genre?: string): ChartTrackEntry[] {
-  if (!genre) return tracks;
-  return tracks.filter((t) => t.music_genre_name?.toLowerCase() === genre.toLowerCase());
-}
-
-function filterTracksByArtist(tracks: ChartTrackEntry[], artist?: string): ChartTrackEntry[] {
-  if (!artist) return tracks;
-  return tracks.filter((t) => t.artist_name?.toLowerCase() === artist.toLowerCase());
+function filterTracks(
+  tracks: ChartTrackEntry[],
+  filters: { genre?: string; artist?: string }
+): ChartTrackEntry[] {
+  return tracks.filter((track) => {
+    if (filters.genre && track.music_genre_name?.toLowerCase() !== filters.genre.toLowerCase()) {
+      return false;
+    }
+    if (filters.artist && track.artist_name?.toLowerCase() !== filters.artist.toLowerCase()) {
+      return false;
+    }
+    return true;
+  });
 }
 
 /* -------------------------
@@ -48,10 +60,8 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
   const tracksData = await getOrLoadChartTracks(country);
   if (!tracksData.length) return null;
 
-  // if musicGenre is provided, filter tracks by music_genre_name
-  const filteredTracks = filterTracksByGenre(tracksData, musicGenre);
-  // if artistName is provided, filter tracks by artist_name
-  const finalTracks = filterTracksByArtist(filteredTracks, artistName);
+  // Apply filters (genre and/or artist)
+  const finalTracks = filterTracks(tracksData, { genre: musicGenre, artist: artistName });
 
   // Not enough tracks
   if (finalTracks.length < QUIZ_OPTIONS_COUNT) return null;
