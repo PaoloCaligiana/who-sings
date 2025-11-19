@@ -17,10 +17,16 @@ export const dictionary = {
     es: "Nombre del jugador",
   },
 
-  "login.button": {
-    en: "Start Game",
-    it: "Inizia il gioco",
-    es: "Comenzar juego",
+  "login.normalModeButton": {
+    en: "Normal Mode",
+    it: "Mosdalità Normale",
+    es: "Modo Normal",
+  },
+
+  "login.endlessModeButton": {
+    en: "Endless Mode",
+    it: "Modalità Infinita",
+    es: "Modo Infinito",
   },
 
   "navbar.play": {
@@ -123,6 +129,12 @@ export const dictionary = {
     en: "{count} questions loaded",
     it: "{count} domande caricate",
     es: "{count} preguntas cargadas",
+  },
+
+  "quiz.endlessModeWarning": {
+    en: "Game ends on first mistake!",
+    it: "La partita termina al primo errore!",
+    es: "El juego termina en el primer error!",
   },
 
   "quiz.startQuiz": {

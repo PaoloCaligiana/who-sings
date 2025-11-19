@@ -4,7 +4,7 @@ import type { QuizCard } from "../../types";
 
 type QuizGameScreenProps = {
     questionIndex: number;
-    totalQuestions: number;
+    totalQuestions?: number; // Opzionale per modalità infinita
     score: number;
     streak: number;
     currentQuestion: QuizCard | null;
@@ -13,6 +13,7 @@ type QuizGameScreenProps = {
     status: "answering" | "feedback";
     selectedOption: string | null;
     onAnswer: (artist: string) => void;
+    isInfiniteMode?: boolean;
 };
 
 export default function QuizGameScreen({
@@ -26,6 +27,7 @@ export default function QuizGameScreen({
     status,
     selectedOption,
     onAnswer,
+    isInfiniteMode = false,
 }: QuizGameScreenProps) {
     const { lang } = useLang();
 
@@ -34,7 +36,10 @@ export default function QuizGameScreen({
             {/* Header */}
             <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
                 <span className="text-sm text-muted">
-                    {translate("quiz.question", lang)} {questionIndex + 1} / {totalQuestions}
+                    {isInfiniteMode 
+                        ? `${translate("quiz.question", lang)} ${questionIndex + 1}` 
+                        : `${translate("quiz.question", lang)} ${questionIndex + 1} / ${totalQuestions}`
+                    }
                 </span>
 
                 <div className="flex items-center gap-2">

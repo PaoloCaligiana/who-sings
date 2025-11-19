@@ -7,9 +7,24 @@ type QuizResultProps = {
     score: number;
     totalQuestions: number;
     reloadQuiz: () => void;
+    isInfiniteMode?: boolean;
+    isLegendary?: boolean;
+    canContinue?: boolean; // Se in infinite e ha completato tutte le domande senza errori
+    onContinue?: () => void;
+    onSaveAndQuit?: () => void;
 };
 
-export default function QuizResult({ playerName, score, totalQuestions, reloadQuiz }: QuizResultProps) {
+export default function QuizResult({ 
+    playerName, 
+    score, 
+    totalQuestions, 
+    reloadQuiz, 
+    isInfiniteMode = false, 
+    isLegendary = false,
+    canContinue = false,
+    onContinue,
+    onSaveAndQuit
+}: QuizResultProps) {
     const { lang } = useLang();
 
     return (
@@ -17,32 +32,49 @@ export default function QuizResult({ playerName, score, totalQuestions, reloadQu
             <div className="card flex flex-col gap-2 max-w-md">
 
                 <h2 className="text-xl font-bold text-primary">
-                    {translate("quiz.finishedTitle", lang)}
+                    {isLegendary ? "🏆 Legendary Player! 🏆" : translate("quiz.finishedTitle", lang)}
                 </h2>
 
                 <p className="text-sm text-muted mb-3">
-                    {translate("quiz.finalScore", lang)
-                        .replace("{player}", playerName)
-                        .replace("{score}", String(score))
-                        .replace("{total}", String(totalQuestions))}
+                    {isInfiniteMode 
+                        ? `${playerName}, ${translate("quiz.score", lang)}: ${score}!`
+                        : translate("quiz.finalScore", lang)
+                            .replace("{player}", playerName)
+                            .replace("{score}", String(score))
+                            .replace("{total}", String(totalQuestions))}
                 </p>
 
                 <p className="text-sm text-muted mb-4">
-                    {translate("quiz.retrySubtitle", lang)}
+                    {isLegendary 
+                        ? "You've reached the maximum! Are you even human? 🤖" 
+                        : translate("quiz.retrySubtitle", lang)}
                 </p>
 
                 <div className="flex gap-3 flex-wrap">
-                    <button className="btn-primary" onClick={reloadQuiz}>
-                        {translate("quiz.playAgain", lang)}
-                    </button>
+                    {canContinue && onContinue ? (
+                        <>
+                            <button className="btn-primary" onClick={onContinue}>
+                                🔥 Continue (Next Round)
+                            </button>
+                            <button className="btn-surface" onClick={onSaveAndQuit}>
+                                💾 Save & Quit
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button className="btn-primary" onClick={reloadQuiz}>
+                                {translate("quiz.playAgain", lang)}
+                            </button>
 
-                    <a href="/me" className="btn-surface">
-                        {translate("quiz.myProfile", lang)}
-                    </a>
+                            <a href="/me" className="btn-surface">
+                                {translate("quiz.myProfile", lang)}
+                            </a>
 
-                    <a href="/highscores" className="btn-surface">
-                        {translate("quiz.highScores", lang)}
-                    </a>
+                            <a href="/highscores" className="btn-surface">
+                                {translate("quiz.highScores", lang)}
+                            </a>
+                        </>
+                    )}
                 </div>
 
             </div>

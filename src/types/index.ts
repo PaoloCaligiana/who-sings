@@ -1,5 +1,6 @@
 // types/index.ts
 export type PlayerName = string;
+export type QuizMode = "normal" | "infinite";
 
 export interface QuizCard {
   lyricLine: string;

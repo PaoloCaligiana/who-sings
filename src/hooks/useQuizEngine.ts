@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react";
 import type { QuizCard } from "../types";
 import { preloadQuizCards } from "../api/quizGenerator";
+import { getInfiniteProgress, saveInfiniteProgress, clearInfiniteProgress } from "../storage/quizSessionStorage";
 
 type QuizStatus = "loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error";
 
-export function useQuizEngine(totalQuestions: number) {
+type UseQuizEngineOptions = {
+  totalQuestions: number;
+  finishOnWrongAnswer?: boolean; // Per modalità infinita
+};
+
+export function useQuizEngine(options: UseQuizEngineOptions | number) {
+  const config = typeof options === "number" 
+    ? { totalQuestions: options, finishOnWrongAnswer: false }
+    : options;
+  
+  const { totalQuestions, finishOnWrongAnswer } = config;
+  
   const [questions, setQuestions] = useState<QuizCard[]>([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<QuizCard | null>(null);
@@ -13,6 +25,11 @@ export function useQuizEngine(totalQuestions: number) {
   const [status, setStatus] = useState<QuizStatus>("loadingQuestions");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  
+  // Infinite mode specifics
+  const [infiniteRound, setInfiniteRound] = useState(1);
+  const [cumulativeScore, setCumulativeScore] = useState(0);
+  const [maxStreak, setMaxStreak] = useState(0); // Streak massima raggiunta
 
   /* -------------------------------------------------------------------------- */
   /*                            CARICAMENTO INIZIALE                              */
@@ -22,6 +39,17 @@ export function useQuizEngine(totalQuestions: number) {
     async function loadQuestions() {
       setStatus("loadingQuestions");
       try {
+        // In infinite mode, ripristina progresso se presente
+        if (finishOnWrongAnswer) {
+          const savedProgress = getInfiniteProgress();
+          if (savedProgress) {
+            setCumulativeScore(savedProgress.score);
+            setInfiniteRound(savedProgress.round);
+            setStreak(savedProgress.streak);
+            setMaxStreak(savedProgress.maxStreak || savedProgress.streak); // Compatibilità con vecchi save
+          }
+        }
+        
         const qs = await preloadQuizCards(totalQuestions);
         setQuestions(qs);
         setStatus("ready");
@@ -32,7 +60,7 @@ export function useQuizEngine(totalQuestions: number) {
     }
 
     loadQuestions();
-  }, [totalQuestions]);
+  }, [totalQuestions, finishOnWrongAnswer]);
 
   /* -------------------------------------------------------------------------- */
   /*                               FUNZIONI DI GIOCO                             */
@@ -42,6 +70,14 @@ export function useQuizEngine(totalQuestions: number) {
   const reloadQuiz = () => {
     setStatus("loadingQuestions");
     setErrorMessage("");
+    
+    // Reset infinite progress
+    if (finishOnWrongAnswer) {
+      clearInfiniteProgress();
+      setCumulativeScore(0);
+      setInfiniteRound(1);
+      setMaxStreak(0);
+    }
 
     async function reload() {
       try {
@@ -57,12 +93,58 @@ export function useQuizEngine(totalQuestions: number) {
     reload();
   };
 
+  /** Continua in infinite mode caricando altre domande */
+  const continueInfinite = () => {
+    // Salva progresso cumulativo
+    const newCumulativeScore = cumulativeScore + score;
+    setCumulativeScore(newCumulativeScore);
+    const newRound = infiniteRound + 1;
+    setInfiniteRound(newRound);
+    
+    // Aggiorna maxStreak se necessario
+    const newMaxStreak = Math.max(maxStreak, streak);
+    setMaxStreak(newMaxStreak);
+    
+    saveInfiniteProgress({
+      score: newCumulativeScore,
+      streak, // Mantieni streak corrente per il prossimo round
+      maxStreak: newMaxStreak,
+      round: newRound
+    });
+    
+    // Ricarica domande
+    setStatus("loadingQuestions");
+    setScore(0); // Reset score del round corrente
+
+    async function loadNext() {
+      try {
+        const qs = await preloadQuizCards(totalQuestions);
+        setQuestions(qs);
+        setStatus("ready");
+      } catch (err) {
+        setErrorMessage(err instanceof Error ? err.message : "Failed to load next questions");
+        setStatus("error");
+      }
+    }
+
+    loadNext();
+  };
+
+  /** Salva e termina sessione infinite */
+  const saveAndQuit = () => {
+    clearInfiniteProgress();
+    setStatus("finished");
+  };
+
   /** Inizia il quiz con le domande già caricate */
   const startGame = () => {
     setQuestionIndex(0);
     setCurrentQuestion(questions[0]);
     setScore(0);
-    setStreak(0);
+    // Non resetta streak in infinite mode (viene mantenuta tra i round)
+    if (!finishOnWrongAnswer) {
+      setStreak(0);
+    }
     setSelectedOption(null);
     setStatus("answering");
   };
@@ -86,7 +168,14 @@ export function useQuizEngine(totalQuestions: number) {
   const handleTimeout = () => {
     setStreak(0);
     setStatus("feedback");
-    setTimeout(goNextQuestion, 800);
+    
+    // In modalità infinita, timeout = errore = fine gioco
+    if (finishOnWrongAnswer) {
+      clearInfiniteProgress();
+      setTimeout(() => setStatus("finished"), 800);
+    } else {
+      setTimeout(goNextQuestion, 800);
+    }
   };
 
   /** Gestisce la risposta dell'utente */
@@ -97,12 +186,26 @@ export function useQuizEngine(totalQuestions: number) {
 
     const isCorrect = artist === currentQuestion.correctArtist;
 
-    setStreak((s) => (isCorrect ? s + 1 : 0));
+    setStreak((s) => {
+      const newStreak = isCorrect ? s + 1 : 0;
+      // Aggiorna maxStreak in infinite mode
+      if (finishOnWrongAnswer && newStreak > maxStreak) {
+        setMaxStreak(newStreak);
+      }
+      return newStreak;
+    });
     if (isCorrect) setScore((s) => s + 1);
 
     setStatus("feedback");
 
-    setTimeout(goNextQuestion, 800);
+    // In modalità infinita, termina se sbaglia
+    if (finishOnWrongAnswer && !isCorrect) {
+      // Salva punteggio finale prima di terminare
+      clearInfiniteProgress();
+      setTimeout(() => setStatus("finished"), 800);
+    } else {
+      setTimeout(goNextQuestion, 800);
+    }
   };
 
   return {
@@ -115,11 +218,19 @@ export function useQuizEngine(totalQuestions: number) {
     status,
     errorMessage,
     selectedOption,
+    
+    // Infinite mode state
+    infiniteRound,
+    cumulativeScore,
+    totalScore: cumulativeScore + score, // Punteggio totale in infinite mode
+    maxStreak, // Streak massima raggiunta nell'intera sessione
 
     // Actions
     startGame,
     handleAnswer,
     handleTimeout,
     reloadQuiz,
+    continueInfinite,
+    saveAndQuit,
   };
 }

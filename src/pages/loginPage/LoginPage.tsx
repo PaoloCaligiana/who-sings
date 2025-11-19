@@ -2,14 +2,17 @@ import { useState } from "react";
 import { translate } from "../../i18n/utils";
 import { useLang } from "../../i18n/LangContext";
 import { useLogin } from "../../hooks/useLogin";
+import type { QuizMode } from "../../types";
+import { saveQuizMode } from "../../storage/quizSessionStorage";
 
 export default function LoginPage() {
   const { lang } = useLang();
   const { login } = useLogin();
   const [name, setName] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (mode: QuizMode) => {
+    if (!name.trim()) return;
+    saveQuizMode(mode);
     login(name);
   };
 
@@ -28,22 +31,33 @@ export default function LoginPage() {
           {translate("login.subtitle", lang)}
         </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          {/* Input */}
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={translate("login.placeholder", lang)}
-            className="input"
-          />
+        {/* Input */}
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={translate("login.placeholder", lang)}
+          className="input"
+        />
 
-          {/* Button */}
-          <button type="submit" className="btn-primary" disabled={!name.trim()}>
-            {translate("login.button", lang)}
+        {/* Buttons */}
+        <div className="flex flex-col gap-3 mt-4">
+          <button 
+            onClick={() => handleSubmit("normal")} 
+            className="btn-primary" 
+            disabled={!name.trim()}
+          >
+            {translate("login.normalModeButton", lang)}
           </button>
-        </form>
+
+          <button 
+            onClick={() => handleSubmit("infinite")} 
+            className="btn-surface" 
+            disabled={!name.trim()}
+          >
+             {translate("login.endlessModeButton", lang)} ∞
+          </button>
+        </div>
 
       </div>
     </div>
