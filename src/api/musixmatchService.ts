@@ -1,7 +1,7 @@
 // musixmatchService.ts
 
 import { getCountryByLang } from "../i18n/utils";
-import { loadChartTracks, saveChartTracks } from "../storage/chartTrucksStorage";
+import { loadChartTracks, saveChartTracks } from "../storage/chartTracksStorage";
 import { getSavedLanguage } from "../storage/languageStorage";
 import type { ChartTrackEntry, MusixmatchTrackApiItem } from "../types";
 import { fetchChartTracks } from "./musixMatchApi";

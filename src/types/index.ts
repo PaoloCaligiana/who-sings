@@ -2,7 +2,6 @@
 export type PlayerName = string;
 
 export interface QuizCard {
-  id: string;
   lyricLine: string;
   correctArtist: string;
   options: string[]; // 3 nomi, già mescolati

@@ -76,7 +76,7 @@ export default function QuizGameScreen({
 
                 {/* Options */}
                 <div className="flex flex-col gap-2 mt-2">
-                    {currentQuestion?.options.map((artist) => {
+                    {currentQuestion?.options.map((artist, index) => {
                         const isSelected = selectedOption === artist;
                         const isCorrect = artist === currentQuestion.correctArtist;
                         const isFeedback = status === "feedback";
@@ -91,7 +91,7 @@ export default function QuizGameScreen({
 
                         return (
                             <button
-                                key={artist}
+                                key={index}
                                 disabled={status !== "answering"}
                                 onClick={() => onAnswer(artist)}
                                 className={`${className} ${status === "answering" ? "hover:-translate-y-px" : ""}`}

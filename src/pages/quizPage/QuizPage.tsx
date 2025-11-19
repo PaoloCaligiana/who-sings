@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getCurrentPlayer } from "../../storage/playerStorage";
 import type { QuizCard } from "../../types";
-import { DEMO_QUESTIONS } from "../../data/quizData";
 import { globalScoresStorage } from "../../storage/globalScoresStorage";
 import { currentScoresStorage } from "../../storage/currentScoresStorage";
 import { useQuestionTimer } from "../../hooks/useQuestionTimer";
@@ -9,7 +8,7 @@ import LoadingScreen from "./LoadingScreen";
 import StartScreen from "./StartScreen";
 import QuizResultScreen from "./QuizResultScreen";
 import QuizGameScreen from "./QuizGameScreen";
-// import { preloadQuizCards } from "../../api/quizGenerator"; // <-- Usare quando API pronte
+import { preloadQuizCards } from "../../api/quizGenerator"; 
 
 
 const TOTAL_QUESTIONS = 7;
@@ -43,16 +42,8 @@ export default function QuizPage() {
 
     // Ricarica le domande
     async function reload() {
-      // Simula un caricamento (rimuovere quando usi le API)
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // 🔥 QUANDO LE API SARANNO PRONTE, sostituire con:
-      // const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-      // setQuestions(qs);
-
-      // Per ora usa DEMO_QUESTIONS
-      setQuestions(DEMO_QUESTIONS.slice(0, TOTAL_QUESTIONS));
-
+      const qs = await preloadQuizCards(TOTAL_QUESTIONS);
+      setQuestions(qs);
       setStatus("ready");
     }
 
@@ -112,18 +103,9 @@ export default function QuizPage() {
   useEffect(() => {
     async function loadQuestions() {
       setStatus("loadingQuestions");
-
-      // Simula un caricamento (rimuovere quando usi le API)
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      // 🔥 QUANDO LE API SARANNO PRONTE, sostituire con:
-      // const qs = await preloadQuizCards(TOTAL_QUESTIONS);
-      // setQuestions(qs);
-
-      // Per ora usa DEMO_QUESTIONS
-      setQuestions(DEMO_QUESTIONS.slice(0, TOTAL_QUESTIONS));
-
-      setStatus("ready"); // ✅ Ora il bottone Start è abilitato!
+      const qs = await preloadQuizCards(TOTAL_QUESTIONS);
+      setQuestions(qs);
+      setStatus("ready"); 
     }
 
     loadQuestions();
