@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useLang } from "../i18n/LangContext";
-import { LANGS } from "../i18n/constants";
+import { LANGUAGE_CONFIGS } from "../i18n/constants";
+import { getLanguageConfigByLang } from "../i18n/utils";
 
 export function LanguageSwitcher() {
   const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
-  const current = LANGS.find((l) => l.code === lang)!;
+  const current = getLanguageConfigByLang(lang)
 
   return (
     <div className="relative inline-block text-left">
@@ -21,7 +22,7 @@ export function LanguageSwitcher() {
       {/* Dropdown */}
       {open && (
         <div className="dropdown animate-fadeIn">
-          {LANGS.map((item) => (
+          {LANGUAGE_CONFIGS.map((item) => (
             <button key={item.code} onClick={() => { setLang(item.code); setOpen(false); }} className={lang === item.code ? "dropdown-item dropdown-item-active" : "dropdown-item"}>
               <span className="flag">{item.flag}</span>
               <span>{item.label}</span>
