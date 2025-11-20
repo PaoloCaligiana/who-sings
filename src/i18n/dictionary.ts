@@ -29,6 +29,12 @@ export const dictionary = {
     es: "Modo Infinito",
   },
 
+  "login.highscoresButton": {
+    en: "Global leaderboard",
+    it: "Classifica generale",
+    es: "Clasificación general",
+  },
+
   "navbar.play": {
     en: "Play",
     it: "Gioca",
@@ -36,9 +42,9 @@ export const dictionary = {
   },
 
   "navbar.highScores": {
-    en: "High Scores",
+    en: "Leaderboard",
     it: "Classifica",
-    es: "Puntuaciones",
+    es: "Clasificación",
   },
 
   "quiz.finishedTitle": {

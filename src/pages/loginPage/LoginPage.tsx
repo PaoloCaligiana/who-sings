@@ -22,10 +22,11 @@ export default function LoginPage() {
       <div className="card max-w-sm w-full flex flex-col gap-4 p-8">
 
         <div>
-          <h1 className="text-2xl font-bold text-primary mb-4">
+          {/* text-sm sm:text-base md:text-lg */}
+          <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">
             {translate("login.title", lang)}
           </h1>
-          <p className="text-sm text-muted mb-2">
+          <p className="text-sm sm:text-base text-muted mb-2">
             {translate("login.subtitle", lang)}
           </p>
         </div>
@@ -54,6 +55,9 @@ export default function LoginPage() {
           >
             {translate("login.endlessModeButton", lang)} ∞
           </button>
+
+          {/* <Link className="btn-surface sm:hidden" to="/highscores">{translate("login.highscoresButton", lang)}</Link> */}
+
         </div>
 
       </div>

@@ -18,7 +18,7 @@ export default function Navbar() {
     return (
         <header className="fixed top-0 left-0 right-0 h-16 flex items-center bg-black/20 backdrop-blur-sm px-4 sm:px-6 md:px-8 z-50">
             {/* Tutto a sinistra */}
-            <div className="font-bold text-base sm:text-base md:text-lg">Who Sings?</div>
+            <div className="font-bold text-sm sm:text-base md:text-lg">Who Sings?</div>
 
 
             {/* Spazio flessibile */}
