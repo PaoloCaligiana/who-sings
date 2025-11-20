@@ -37,18 +37,16 @@ export default function QuizStartScreen({
     };
 
   return (
-    <div className="flex items-center justify-center min-h-[70vh] px-4">
-      <div className="card max-w-md w-full flex flex-col gap-6 text-center">
+    <div className="flex items-center justify-center min-h-[70vh]">
+      <div className="card max-w-sm w-full flex flex-col gap-4 p-8">
 
         {/* Icon + Title */}
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-4">
           <div className="text-4xl">{config.icon}</div>
-
           <h2 className="text-xl sm:text-2xl font-bold text-primary">
             {config.title}
           </h2>
-
-          <p className="text-sm text-white/70">
+          <p className="text-sm sm:text-base text-secondary">
             {config.subtitle}
           </p>
         </div>

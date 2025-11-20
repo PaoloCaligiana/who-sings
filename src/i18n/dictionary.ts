@@ -6,15 +6,15 @@ export const dictionary = {
   },
 
   "login.subtitle": {
-    en: "Enter your name to start playing.",
-    it: "Inserisci il tuo nome per iniziare a giocare.",
-    es: "Ingresa tu nombre para comenzar a jugar.",
+    en: "Enter your nickname to start playing.",
+    it: "Inserisci il tuo nickname per giocare.",
+    es: "Ingresa tu nickname para comenzar a jugar.",
   },
 
   "login.placeholder": {
-    en: "Player name",
-    it: "Nome giocatore",
-    es: "Nombre del jugador",
+    en: "Player nickname",
+    it: "Nickname giocatore",
+    es: "Nickname jugador",
   },
 
   "login.normalModeButton": {

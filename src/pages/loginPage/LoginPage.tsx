@@ -61,7 +61,7 @@ export default function LoginPage() {
           <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">
             {translate("login.title", lang)}
           </h1>
-          <p className="text-sm sm:text-base text-muted mb-2">
+          <p className="text-sm sm:text-base text-secondary mb-4">
             {translate("login.subtitle", lang)}
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function LoginPage() {
           onChange={(e) => handleInputChange(e.target.value)}
           onFocus={handleFocus}
           placeholder={translate("login.placeholder", lang)}
-          className="input"
+          className="input "
           maxLength={MAX_CHARS}
         />
 
