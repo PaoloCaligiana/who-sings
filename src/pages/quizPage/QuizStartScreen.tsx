@@ -38,7 +38,7 @@ export default function QuizStartScreen({
 
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
-      <div className="card max-w-sm w-full flex flex-col gap-4 p-8">
+      <div className="card max-w-sm w-full flex flex-col gap-4">
 
         {/* Icon + Title */}
         <div className="flex flex-col items-center gap-4">
