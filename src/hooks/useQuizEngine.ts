@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { QuizCard } from "../types";
 import { preloadQuizCards } from "../api/quizGenerator";
 import { getInfiniteProgress, saveInfiniteProgress, clearInfiniteProgress, saveQuizMode } from "../storage/quizSessionStorage";
+import { globalScoresStorage } from "../storage/globalScoresStorage";
 
 type QuizStatus = "loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error";
 
@@ -28,6 +29,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const [infiniteRound, setInfiniteRound] = useState(1);
   const [cumulativeScore, setCumulativeScore] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0); // Streak massima raggiunta
+  const [isLegendary, setIsLegendary] = useState(false); // Nuovo record mondiale
 
   /* -------------------------------------------------------------------------- */
   /*                            CARICAMENTO INIZIALE                              */
@@ -162,6 +164,12 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     const nextIndex = questionIndex + 1;
 
     if (nextIndex >= totalQuestions) {
+      // Verifica se è un nuovo record prima di finire
+      const finalScore = finishOnWrongAnswer ? cumulativeScore + score : score;
+      const previousMaxScore = globalScoresStorage.getMaxScore();
+      if (finalScore > previousMaxScore) {
+        setIsLegendary(true);
+      }
       setStatus("finished");
       return;
     }
@@ -179,6 +187,12 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
 
     // In modalità infinita, timeout = errore = fine gioco
     if (finishOnWrongAnswer) {
+      // Verifica se è un nuovo record
+      const finalScore = cumulativeScore + score;
+      const previousMaxScore = globalScoresStorage.getMaxScore();
+      if (finalScore > previousMaxScore) {
+        setIsLegendary(true);
+      }
       clearInfiniteProgress();
       setTimeout(() => setStatus("finished"), 800);
     } else {
@@ -208,6 +222,12 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
 
     // In modalità infinita, termina se sbaglia
     if (finishOnWrongAnswer && !isCorrect) {
+      // Verifica se è un nuovo record
+      const finalScore = cumulativeScore + score;
+      const previousMaxScore = globalScoresStorage.getMaxScore();
+      if (finalScore > previousMaxScore) {
+        setIsLegendary(true);
+      }
       // Salva punteggio finale prima di terminare
       clearInfiniteProgress();
       setTimeout(() => setStatus("finished"), 800);
@@ -232,6 +252,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     cumulativeScore,
     totalScore: cumulativeScore + score, // Punteggio totale in infinite mode
     maxStreak, // Streak massima raggiunta nell'intera sessione
+    isLegendary, // Indica se ha battuto il record mondiale
 
     // Actions
     startGame,

@@ -1,30 +1,30 @@
 import { useLang } from '../../i18n/LangContext';
 import { translate } from '../../i18n/utils';
-import { getInfiniteProgress } from '../../storage/quizSessionStorage';
 
 type StartScreenProps = {
   questionsCount: number;
   onStart: () => void;
   isInfiniteMode?: boolean;
   onSwitchMode: () => void;
+  infiniteRound?: number;
 };
 
 export default function QuizStartScreen({
   questionsCount,
   onStart,
   isInfiniteMode = false,
-  onSwitchMode
+  onSwitchMode,
+  infiniteRound = 1
 }: StartScreenProps) {
 
   const { lang } = useLang();
-  const infinityProgress = getInfiniteProgress()?.round || 1;
 
-  // Config dinamica
+  
   const config = isInfiniteMode
     ? {
       icon: "∞",
       title: translate("login.endlessModeButton", lang),
-      subtitle: translate("quiz.round", lang).replace("{count}", infinityProgress.toString()),
+      subtitle: translate("quiz.round", lang).replace("{count}", infiniteRound.toString()),
       showWarning: true,
       switchText: translate("login.normalModeButton", lang)
     }

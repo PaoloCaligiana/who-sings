@@ -1,6 +1,7 @@
 
 import { useLang } from '../../i18n/LangContext';
 import { translate } from '../../i18n/utils';
+import type { Lang } from '../../i18n/constants';
 
 type QuizResultProps = {
     playerName: string;
@@ -8,10 +9,25 @@ type QuizResultProps = {
     totalQuestions: number;
     reloadQuiz: () => void;
     isInfiniteMode?: boolean;
+    infiniteRound?: number;
     isLegendary?: boolean;
     canContinue?: boolean; // Se in infinite e ha completato tutte le domande senza errori
     onContinue?: () => void;
     onSwitchMode: () => void;
+};
+
+// Helper per selezionare messaggio motivazionale/vittoria in base al round (rotazione ciclica)
+const getMotivationalMessage = (round: number, isLegendary: boolean, lang: Lang): string => {
+    const messageType = isLegendary ? 'victory' : 'motivational';
+    const messageIndex = ((round - 1) % 7) + 1; // Cicla tra 1-7
+    const key = `quiz.${messageType}${messageIndex}`;
+    
+    type MessageKey = "quiz.motivational1" | "quiz.motivational2" | "quiz.motivational3" | "quiz.motivational4" | 
+                      "quiz.motivational5" | "quiz.motivational6" | "quiz.motivational7" |
+                      "quiz.victory1" | "quiz.victory2" | "quiz.victory3" | "quiz.victory4" |
+                      "quiz.victory5" | "quiz.victory6" | "quiz.victory7";
+    
+    return translate(key as MessageKey, lang);
 };
 
 export default function QuizResult({ 
@@ -23,6 +39,7 @@ export default function QuizResult({
     isLegendary = false,
     canContinue = false,
     onContinue,
+    infiniteRound = 1,
     // onSwitchMode
 }: QuizResultProps) {
     const { lang } = useLang();
@@ -45,8 +62,8 @@ export default function QuizResult({
                 </p>
 
                 <p className="text-sm text-muted mb-4">
-                    {isLegendary 
-                        ? "You've reached the maximum! Are you even human? 🤖" 
+                    {canContinue && onContinue
+                        ? getMotivationalMessage(infiniteRound, isLegendary, lang)
                         : translate("quiz.retrySubtitle", lang)}
                 </p>
 
@@ -54,7 +71,7 @@ export default function QuizResult({
                     {canContinue && onContinue ? (
                         <>
                             <button className="btn-primary" onClick={onContinue}>
-                                🔥 Continue (Next Round)
+                                🔥 Continue ({infiniteRound+1} Round)
                             </button>
                             
                             {/* <button className="btn-surface" onClick={onSwitchMode}>

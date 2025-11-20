@@ -18,6 +18,12 @@ export function createScoreStorage(storageKey: string) {
       return this.getAllResults().filter((r) => r.playerName === playerName);
     },
 
+    getMaxScore(): number {
+      const results = this.getAllResults();
+      if (results.length === 0) return 0;
+      return Math.max(...results.map((r) => r.score));
+    },
+
     clear() {
       localStorage.removeItem(storageKey);
     },

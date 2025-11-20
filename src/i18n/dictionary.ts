@@ -173,6 +173,90 @@ export const dictionary = {
     es: "Comenzar Quiz",
   },
 
+  "quiz.motivational1": {
+    en: "Very Good! Keep it up! 👍",
+    it: "Buono! Continua così! 👍",
+    es: "¡Bueno! ¡Sigue así! 👍",
+  },
+
+  "quiz.motivational2": {
+    en: "Nice progress! You're doing great! 🎯",
+    it: "Ottimi progressi! Stai andando alla grande! 🎯",
+    es: "¡Buen progreso! ¡Lo estás haciendo genial! 🎯",
+  },
+
+  "quiz.motivational3": {
+    en: "Wow, you're climbing all the leaderboards! 🚀",
+    it: "Wow, stai scalando tutte le classifiche! 🚀",
+    es: "¡Wow, estás escalando todas las clasificaciones! 🚀",
+  },
+
+  "quiz.motivational4": {
+    en: "You're unstoppable! Keep going! 💪",
+    it: "Sei inarrestabile! Continua così! 💪",
+    es: "¡Eres imparable! ¡Sigue así! 💪",
+  },
+
+  "quiz.motivational5": {
+    en: "Amazing streak! You're on fire! 🔥",
+    it: "Streak incredibile! Sei in fiamme! 🔥",
+    es: "¡Racha increíble! ¡Estás en llamas! 🔥",
+  },
+
+  "quiz.motivational6": {
+    en: "Impressive performance! Don't stop now! ⚡",
+    it: "Performance impressionante! Non fermarti ora! ⚡",
+    es: "¡Rendimiento impresionante! ¡No te detengas ahora! ⚡",
+  },
+
+  "quiz.motivational7": {
+    en: "Incredible! You're a music genius! 🎵",
+    it: "Incredibile! Sei un genio della musica! 🎵",
+    es: "¡Increíble! ¡Eres un genio de la música! 🎵",
+  },
+
+  "quiz.victory1": {
+    en: "You're at the top! Great job! 🥇",
+    it: "Sei in cima! Ottimo lavoro! 🥇",
+    es: "¡Estás en la cima! ¡Buen trabajo! 🥇",
+  },
+
+  "quiz.victory2": {
+    en: "You've reached the maximum! Are you even human? 🤖",
+    it: "Hai raggiunto il massimo! Ma sei umano? 🤖",
+    es: "¡Has alcanzado el máximo! ¿Eres humano? 🤖",
+  },
+
+  "quiz.victory3": {
+    en: "Legendary status achieved! You're the champion! 👑",
+    it: "Status leggendario raggiunto! Sei il campione! 👑",
+    es: "¡Estado legendario alcanzado! ¡Eres el campeón! 👑",
+  },
+
+  "quiz.victory4": {
+    en: "Unbelievable! You're breaking all records! 💎",
+    it: "Incredibile! Stai battendo tutti i record! 💎",
+    es: "¡Increíble! ¡Estás rompiendo todos los récords! 💎",
+  },
+
+  "quiz.victory5": {
+    en: "Absolute domination! Nobody can stop you! 🌟",
+    it: "Dominio assoluto! Nessuno può fermarti! 🌟",
+    es: "¡Dominación absoluta! ¡Nadie puede detenerte! 🌟",
+  },
+
+  "quiz.victory6": {
+    en: "Perfection! You're rewriting history! ✨",
+    it: "Perfezione! Stai riscrivendo la storia! ✨",
+    es: "¡Perfección! ¡Estás reescribiendo la historia! ✨",
+  },
+
+  "quiz.victory7": {
+    en: "God mode activated! You're unstoppable! 🏆",
+    it: "Modalità Dio attivata! Sei inarrestabile! 🏆",
+    es: "¡Modo Dios activado! ¡Eres imparable! 🏆",
+  },
+
   "quiz.timeLeft": {
     en: "Time left",
     it: "Tempo rimasto",

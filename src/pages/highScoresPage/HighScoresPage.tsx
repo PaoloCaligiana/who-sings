@@ -2,6 +2,7 @@ import { useLang } from "../../i18n/LangContext";
 import { translate } from "../../i18n/utils";
 import { bestScorePerPlayer } from "../../services/leaderboardStrategies";
 import { getLeaderboard } from "../../services/leaderBoardService";
+import { globalScoresStorage } from "../../storage/globalScoresStorage";
 
 export default function HighScoresPage() {
   const { lang } = useLang();
@@ -9,10 +10,7 @@ export default function HighScoresPage() {
   const strategy = bestScorePerPlayer;
   const leaderboard = getLeaderboard(strategy, 10);
 
-  const maxScore = leaderboard.reduce(
-    (m, i) => Math.max(m, i.bestScore),
-    1
-  );
+  const maxScore = Math.max(globalScoresStorage.getMaxScore(), 1);
 
   return (
     <div>

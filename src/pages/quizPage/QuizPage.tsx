@@ -12,8 +12,8 @@ import QuizGameScreen from "./QuizGameScreen";
 import QuizErrorScreen from "./QuizErrorScreen";
 
 const QUIZ_CONFIG = {
-  normal: { questions: 7, time: 7, finishOnWrongAnswer: false },
-  infinite: { questions: 7, time: 7, finishOnWrongAnswer: true }
+  normal: { questions: 2, time: 7, finishOnWrongAnswer: false },
+  infinite: { questions: 2, time: 7, finishOnWrongAnswer: true }
 } as const;
 
 export default function QuizPage() {
@@ -41,7 +41,7 @@ export default function QuizPage() {
       const isInfinite = mode === "infinite";
       const finalScore = isInfinite ? quiz.totalScore : quiz.score;
       const finalMaxStreak = isInfinite ? quiz.maxStreak : quiz.streak;
-      
+
       const gameResult = {
         playerName,
         score: finalScore,
@@ -51,10 +51,10 @@ export default function QuizPage() {
 
       globalScoresStorage.saveGameResult(gameResult);
       currentScoresStorage.saveGameResult(gameResult);
-      
-      console.log('[Quiz] Partita salvata:', { 
-        mode, 
-        score: finalScore, 
+
+      console.log('[Quiz] Partita salvata:', {
+        mode,
+        score: finalScore,
         maxStreak: finalMaxStreak,
         round: isInfinite ? quiz.infiniteRound : 1
       });
@@ -69,7 +69,7 @@ export default function QuizPage() {
 
   if (quiz.status === "error") return <QuizErrorScreen errorMessage={quiz.errorMessage} reloadQuiz={quiz.reloadQuiz} />;
 
-  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} onSwitchMode={quiz.switchMode} questionsCount={quiz.questions.length} isInfiniteMode={mode === "infinite"} />;
+  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} onSwitchMode={quiz.switchMode} questionsCount={quiz.questions.length} isInfiniteMode={mode === "infinite"} infiniteRound={quiz.infiniteRound} />;
 
   /* ========================================================================== */
   /*                            RENDER: QUIZ FINITO                              */
@@ -79,7 +79,7 @@ export default function QuizPage() {
     const isInfinite = mode === "infinite";
     const completedAllQuestions = quiz.score === config.questions;
     const canContinue = isInfinite && completedAllQuestions;
-    
+
     return (
       <QuizResultScreen
         playerName={playerName}
@@ -87,7 +87,8 @@ export default function QuizPage() {
         totalQuestions={isInfinite ? quiz.totalScore : config.questions}
         reloadQuiz={quiz.reloadQuiz}
         isInfiniteMode={isInfinite}
-        isLegendary={false}
+        infiniteRound={quiz.infiniteRound} 
+        isLegendary={quiz.isLegendary}
         canContinue={canContinue}
         onContinue={canContinue ? quiz.continueInfinite : undefined}
         onSwitchMode={quiz.switchMode}
