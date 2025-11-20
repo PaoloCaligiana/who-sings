@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const API_KEY = import.meta.env.VITE_MUSIXMATCH_API_KEY;
-const PROXY_URL = "/musix";
+const BASE = import.meta.env.VITE_API_BASE;
 
 const musixmatchClient = axios.create({
-  baseURL: PROXY_URL
+  baseURL: BASE
 });
 
 musixmatchClient.interceptors.response.use(
@@ -15,5 +14,4 @@ musixmatchClient.interceptors.response.use(
   }
 );
 
-export {API_KEY};
 export default musixmatchClient;

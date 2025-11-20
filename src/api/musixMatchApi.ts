@@ -1,9 +1,9 @@
-import musixmatchClient, { API_KEY } from "./musixmatchClient";
+import musixmatchClient from "./musixmatchClient";
 
 export async function fetchChartTracks(country: string) {
-  const res = await musixmatchClient.get("/chart.tracks.get", {
+  const res = await musixmatchClient.get("/", {
     params: {
-      apikey: API_KEY,
+      endpoint: "chart.tracks.get",
       country,
       page: 1,
       f_has_lyrics: 1,
@@ -11,27 +11,17 @@ export async function fetchChartTracks(country: string) {
     }
   });
 
-  return res.data.message.body.track_list ?? [];
+  return res.data?.message?.body?.track_list ?? [];
 }
 
 export async function fetchLyricsByCommontrack(commontrackId: number) {
-  try {
-    const res = await musixmatchClient.get("/track.lyrics.get", {
-      params: {
-        apikey: API_KEY,
-        commontrack_id: commontrackId
-      }
-    });
-
-    const lyrics = res.data?.message?.body?.lyrics;
-    
-    if (!lyrics || !lyrics.lyrics_body) {
-      return null;
+  const res = await musixmatchClient.get("/", {
+    params: {
+      endpoint: "track.lyrics.get",
+      commontrack_id: commontrackId,
     }
+  });
 
-    return lyrics.lyrics_body;
-  } catch (error) {
-    console.warn(`Failed to fetch lyrics for commontrack_id ${commontrackId}:`, error);
-    return null;
-  }
+  const lyrics = res.data?.message?.body?.lyrics;
+  return lyrics?.lyrics_body ?? null;
 }

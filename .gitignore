@@ -1,4 +1,6 @@
-# Logs
+# ============================================================
+# GLOBAL LOGS & TEMP FILES
+# ============================================================
 logs
 *.log
 npm-debug.log*
@@ -6,16 +8,47 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*.cache
 
-node_modules
-dist
-dist-ssr
-*.local
+# ============================================================
+# NODE MODULES
+# ============================================================
+node_modules/
+functions/node_modules/
 
-# Editor directories and files
+# ============================================================
+# FRONTEND BUILD (Vite)
+# ============================================================
+dist/
+dist-ssr/
+
+# ============================================================
+# FIREBASE
+# ============================================================
+.firebase/
+hosting.*
+.firebasehosting.*
+
+# ============================================================
+# FIREBASE FUNCTIONS BUILD (TS -> JS output)
+# ============================================================
+functions/lib/
+functions/.eslintrc.js
+
+# ============================================================
+# ENVIRONMENT VARIABLES
+# (keep .env.example in repo)
+# ============================================================
+.env
+.env.*
+!.env.example   # allow env.example only
+
+# ============================================================
+# EDITOR SPECIFIC FILES
+# ============================================================
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
@@ -23,9 +56,7 @@ dist-ssr
 *.sln
 *.sw?
 
-# Environment variables
-.env
-.env.local
-.env.development
-.env.production
-
+# ============================================================
+# MISC
+# ============================================================
+*.local
