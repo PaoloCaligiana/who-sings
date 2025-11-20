@@ -28,7 +28,7 @@ export default function QuizResult({
     const { lang } = useLang();
 
     return (
-        <div className="flex justify-center items-center min-h-[70vh] px-4">
+        <div className="flex items-center justify-center min-h-[70vh]">
             <div className="card flex flex-col gap-2 max-w-md">
 
                 <h2 className="text-xl font-bold text-primary">

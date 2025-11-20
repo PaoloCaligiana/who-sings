@@ -4,22 +4,29 @@
 @theme {
   /* Brand Colors */
   --color-bg: #050816;
-  --color-surface: #0f172a; /* SI */
-  --color-surface-dark: #0b1121; /* SI */
-  --color-primary: #f97316; /* SI */
-  --color-primary-soft: color-mix(in oklch, var(--color-primary) 80%, black); /* SI */
+  --color-surface: #0f172a;
+  /* SI */
+  --color-surface-dark: #0b1121;
+  /* SI */
+  --color-primary: #f97316;
+  /* SI */
+  --color-primary-soft: color-mix(in oklch, var(--color-primary) 80%, black);
+  /* SI */
   --color-secondary: rgb(255 255 255 / 0.7);
   --color-success: #22c55e;
-  --color-danger: #ef4444; 
-  --color-muted: #6b7280; /* SI */
-  --color-gradient-primary: linear-gradient(90deg, #FF6B6B, #FFB347); /* SI */
-  --color-gradient-primary-soft: linear-gradient(90deg, color-mix(in oklch, #FF6B6B 70%, black), color-mix(in oklch, #FFB347 70%, black)); /* SI */
+  --color-danger: #ef4444;
+  --color-muted: #6b7280;
+  /* SI */
+  --color-gradient-primary: linear-gradient(90deg, #FF6B6B, #FFB347);
+  /* SI */
+  --color-gradient-primary-soft: linear-gradient(90deg, color-mix(in oklch, #FF6B6B 70%, black), color-mix(in oklch, #FFB347 70%, black));
+  /* SI */
 
 }
 
 @layer components {
 
-   /* --- NAVBAR LINKS --- */
+  /* --- NAVBAR LINKS --- */
   .nav-link {
     @apply text-sm font-medium text-white/90 sm:px-3 py-1.5 rounded-full transition hover:text-white hover:bg-white/10;
   }
@@ -65,15 +72,15 @@
     background: var(--color-gradient-primary-soft);
   }
 
-   .btn-surface {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-colors duration-150 bg-surface text-white border border-surface-dark hover:border-primary hover:cursor-pointer;
+  .btn-surface {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 text-white border-2 border-surface-dark bg-surface  hover:border-primary hover:cursor-pointer;
   }
 
   .btn-surface:active {
-    
+
     background: var(--color-gradient-primary);
   }
-  
+
   .btn-surface:disabled {
     @apply opacity-50 border-transparent;
   }
@@ -93,11 +100,11 @@
   }
 
 
- 
+
 
   /* --- NAVBAR OUTLINE BUTTON (Logout) --- */
   .btn-nav-outline {
-    @apply px-4 py-2 rounded-full text-sm font-medium border border-white/40 text-white/90 hover:text-white hover:border-white transition hover:cursor-pointer ;
+    @apply px-4 py-2 rounded-full text-sm font-medium border border-white/40 text-white/90 hover:text-white hover:border-white transition hover:cursor-pointer;
   }
 
   /* --- RADIAL BACKGROUND UTILITY --- */
@@ -106,7 +113,7 @@
   }
 
 
-  
+
 
   /* BADGES */
   .badge-primary {
@@ -144,17 +151,19 @@
     background: var(--color-gradient-primary);
   } */
 
+/* @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white border-2 border-transparent; */
+
   /* ANSWER BUTTONS */
   .btn-answer {
-    @apply w-full text-left px-4 py-2 rounded-full font-semibold bg-surface-dark border border-surface-dark text-white transition-all hover:bg-surface;
+    @apply w-full text-left px-4 py-2 rounded-lg font-semibold bg-surface-dark border border-surface-dark text-white transition-all hover:bg-surface hover:cursor-pointer;
   }
 
   .btn-answer-correct {
-    @apply w-full text-left px-4 py-2 rounded-full font-semibold bg-success/20 border-success/40 text-success;
+    @apply w-full text-left px-4 py-2 rounded-lg font-semibold bg-success/20 border-success/40 text-success;
   }
 
   .btn-answer-wrong {
-    @apply w-full text-left px-4 py-2 rounded-full font-semibold bg-danger/20 border-danger/40 text-danger;
+    @apply w-full text-left px-4 py-2 rounded-lg font-semibold bg-danger/20 border-danger/40 text-danger;
   }
 
   /* Chip */
@@ -177,16 +186,17 @@
 
   /* Music Loading Animation */
   .music-loader {
-    @apply flex items-end gap-1 h-12;
+    @apply flex items-end gap-1 h-12 sm:h-16 lg:h-20;
   }
 
   .music-bar {
-    @apply w-1.5 rounded-full;
+    @apply w-1.5 sm:w-2 lg:w-3 rounded-full;
     background: var(--color-gradient-primary);
     animation: music-bounce 0.8s ease-in-out infinite;
   }
 
-  .music-bar:nth-child(1) {
+
+  .m.music-bar:nth-child(1) {
     animation-delay: 0s;
   }
 

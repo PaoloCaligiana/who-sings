@@ -81,7 +81,7 @@ export default function QuizGameScreen({
                     </div>
 
                     {/* Timer */}
-                    <div className="mb-8">
+                    <div className="mb-4">
                         <p className="text-xs text-muted">{translate("quiz.timeLeft", lang)}: {timeLeft}s</p>
                     </div>
 

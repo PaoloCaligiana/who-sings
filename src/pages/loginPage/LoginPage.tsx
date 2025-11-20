@@ -61,7 +61,7 @@ export default function LoginPage() {
           <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">
             {translate("login.title", lang)}
           </h1>
-          <p className="text-sm sm:text-base text-secondary mb-4">
+          <p className="text-sm sm:text-base text-secondary ">
             {translate("login.subtitle", lang)}
           </p>
         </div>
