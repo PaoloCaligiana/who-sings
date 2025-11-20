@@ -6,7 +6,7 @@ interface CachedChartData {
 }
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 ore
-const CHART_KEY = "who-sings-chart-tracks";
+const CHART_KEY = "pc-who-sings-chart-tracks";
 
 export function saveChartTracks(country: string, chartTracks: ChartTrackEntry[]) {
   const raw = localStorage.getItem(CHART_KEY);

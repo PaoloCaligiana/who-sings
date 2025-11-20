@@ -1,6 +1,6 @@
 import { currentScoresStorage } from "./currentScoresStorage";
 
-const PLAYER_KEY = "who-sings-current-player";
+const PLAYER_KEY = "pc-who-sings-current-player";
 
 export function saveCurrentPlayer(name: string) {
   localStorage.setItem(PLAYER_KEY, name);

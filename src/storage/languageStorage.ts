@@ -1,7 +1,7 @@
 import type { Lang } from "../i18n/constants";
 import { isValidLang } from "../i18n/utils";
 
-const LANGUAGE_KEY = "who-sings-language";
+const LANGUAGE_KEY = "pc-who-sings-language";
 
 
 export function saveLanguage(lang: Lang) {

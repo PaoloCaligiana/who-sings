@@ -1,7 +1,7 @@
 import type { QuizMode } from "../types";
 
-const QUIZ_MODE_KEY = "who-sings-quiz-mode";
-const INFINITE_PROGRESS_KEY = "who-sings-infinite-progress";
+const QUIZ_MODE_KEY = "pc-who-sings-quiz-mode";
+const INFINITE_PROGRESS_KEY = "pc-who-sings-infinite-progress";
 
 interface InfiniteProgress {
   score: number;
