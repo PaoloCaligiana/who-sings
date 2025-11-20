@@ -14,7 +14,7 @@ export default function LoadingScreen() {
                 <div className="music-bar"></div>
                 <div className="music-bar"></div>
             </div>
-            <h2 className="text-xl text-muted">{translate("quiz.loadingQuestions", lang)}</h2>
+            <h2 className="text-sm sm:text-lg text-muted">{translate("quiz.loadingQuestions", lang)}</h2>
         </div>
     );
 }

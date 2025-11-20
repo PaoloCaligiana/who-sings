@@ -16,21 +16,24 @@ export default function Navbar() {
 
 
     return (
-        <header className="w-full px-5 py-2 flex justify-between items-center bg-black/20 backdrop-blur-sm">
+        <header className="fixed top-0 left-0 right-0 h-16 flex items-center bg-black/20 backdrop-blur-sm px-4 sm:px-6 md:px-8 z-50">
             {/* Tutto a sinistra */}
-            <div className="font-bold text-xl">Who Sings?</div>
+            <div className="font-bold text-sm sm:text-lg">Who Sings?</div>
 
-            <nav className="flex items-center gap-4">
+            {/* Spazio flessibile */}
+            <div className="flex-1" />
+
+            <nav className="flex items-center gap-4 text-sm sm:text-lg">
                 {/* Centrali */}
-                <Link className="nav-link" to="/quiz">{translate('navbar.play', lang)}</Link>
-                <Link className="nav-link" to="/highscores">{translate('navbar.highScores', lang)}</Link>
+                <Link className="nav-link hidden sm:inline-block" to="/quiz">{translate('navbar.play', lang)}</Link>
+                <Link className="nav-link hidden sm:inline-block" to="/highscores">{translate('navbar.highScores', lang)}</Link>
 
                 {/* Tutto a destra */}
                 <LanguageSwitcher />
                 {player && (
                     <>
-                        <Link className="nav-link" to="/me">{player}</Link>
-                        <button className="btn-nav-outline" onClick={handleLogout}>
+                        <Link className="nav-link truncate max-w-[7ch] inline-block" to="/me"> {player}</Link>
+                        <button className="nav-link" onClick={handleLogout}>
                             Logout
                         </button>
                     </>
