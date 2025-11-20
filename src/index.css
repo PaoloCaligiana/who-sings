@@ -35,18 +35,6 @@
     @apply text-sm font-medium text-white/90 sm:px-3 py-1.5 rounded-full transition hover:text-white hover:bg-white/10;
   }
 
-  /* --- DROPDOWN MENU --- */
-  /* .dropdown {
-    @apply absolute right-0 mt-2 w-44 bg-surface border border-surface-dark rounded-xl shadow-lg z-20;
-  }
-
-  .dropdown-item {
-    @apply w-full flex items-center gap-2 px-4 py-2 text-left text-neutral-200 hover:bg-surface-dark transition rounded-lg;
-  }
-
-  .dropdown-item-active {
-    @apply bg-primary text-white hover:bg-primary-soft;
-  } */
 
   .dropdown {
     @apply absolute right-0 mt-3 w-40 bg-surface/20 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl z-99;
@@ -60,6 +48,18 @@
     @apply text-white bg-primary/40 hover:bg-primary/50;
   }
 
+  /* --- DROPDOWN MENU --- */
+  /* .dropdown {
+    @apply absolute right-0 mt-2 w-44 bg-surface border border-surface-dark rounded-xl shadow-lg z-20;
+  }
+
+  .dropdown-item {
+    @apply w-full flex items-center gap-2 px-4 py-2 text-left text-neutral-200 hover:bg-surface-dark transition rounded-lg;
+  }
+
+  .dropdown-item-active {
+    @apply bg-primary text-white hover:bg-primary-soft;
+  } */
 
 
   
