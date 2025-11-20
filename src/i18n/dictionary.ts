@@ -35,6 +35,24 @@ export const dictionary = {
     es: "Clasificación general",
   },
 
+  "login.errorMinLength": {
+    en: "At least 3 characters required",
+    it: "Minimo 3 caratteri richiesti",
+    es: "Mínimo 3 caracteres requeridos",
+  },
+
+  "login.errorMaxLength": {
+    en: "Maximum 7 characters allowed",
+    it: "Massimo 7 caratteri consentiti",
+    es: "Máximo 7 caracteres permitidos",
+  },
+
+  "login.errorNoSpaces": {
+    en: "Spaces are not allowed",
+    it: "Gli spazi non sono consentiti",
+    es: "No se permiten espacios",
+  },
+
   "navbar.play": {
     en: "Play",
     it: "Gioca",

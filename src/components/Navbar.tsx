@@ -34,7 +34,7 @@ export default function Navbar() {
                 <LanguageSwitcher />
                 {player && (
                     <>
-                        <Link className="nav-link truncate max-w-[7ch] inline-block" to="/me"> {player}</Link>
+                        <Link className="nav-link truncate max-w-[9ch] inline-block" to="/me"> {player}</Link>
                         <button className="nav-link" onClick={handleLogout}>
                             Logout
                         </button>
