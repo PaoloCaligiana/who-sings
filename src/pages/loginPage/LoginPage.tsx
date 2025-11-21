@@ -59,10 +59,12 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
-      <div className="card max-w-sm w-full flex flex-col gap-4">
+      <div className="card max-w-sm md:max-w-md lg:max-w-lg w-full flex flex-col gap-4 md:gap-6 lg:gap-8">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">{translate("login.title", lang)}</h1>
-          <p className="text-sm sm:text-base text-secondary ">{translate("login.subtitle", lang)}</p>
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-4">
+            {translate("login.title", lang)}
+          </h1>
+          <p className="text-sm sm:text-base md:text-lg text-secondary">{translate("login.subtitle", lang)}</p>
         </div>
 
         <input
@@ -75,9 +77,11 @@ export default function LoginPage() {
           maxLength={MAX_CHARS}
         />
 
-        {error && touched && <p className="text-xs text-orange-400 -mt-2">⚠ {translate(error, lang)}</p>}
+        {error && touched && (
+          <p className="text-xs md:text-sm lg:text-base text-orange-400 -mt-2">⚠ {translate(error, lang)}</p>
+        )}
 
-        <div className="flex flex-col gap-3 pt-2">
+        <div className="flex flex-col gap-3 md:gap-4 lg:gap-5 pt-2">
           <button onClick={() => handleSubmit("normal")} className="btn-primary" disabled={!name.trim() || !!error}>
             {translate("login.normalModeButton", lang)}
           </button>

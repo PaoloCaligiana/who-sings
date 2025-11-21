@@ -56,12 +56,12 @@ export default function QuizResult({
 
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
-      <div className="card flex flex-col gap-2 max-w-md">
-        <h2 className="text-xl font-bold text-primary">
+      <div className="card flex flex-col gap-2 md:gap-3 lg:gap-4 max-w-md md:max-w-lg lg:max-w-xl">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary">
           {isLegendary ? "Legendary Player! 🏆" : translate("quiz.finishedTitle", lang)}
         </h2>
 
-        <p className="text-sm sm:text-base text-secondary mb-2">
+        <p className="text-sm md:text-base lg:text-lg text-secondary mb-2">
           {isInfiniteMode
             ? `${playerName}, ${translate("quiz.score", lang)}: ${score}!`
             : translate("quiz.finalScore", lang)
@@ -70,22 +70,22 @@ export default function QuizResult({
                 .replace("{total}", String(totalQuestions))}
         </p>
 
-        <p className="text-sm sm:text-base text-muted mb-4">
+        <p className="text-sm md:text-base lg:text-lg text-muted mb-4">
           {canContinue && onContinue
             ? getMotivationalMessage(infiniteRound, isLegendary, lang)
             : translate("quiz.retrySubtitle", lang)}
         </p>
 
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-3 md:gap-4 lg:gap-5 flex-wrap">
           {canContinue && onContinue ? (
             <>
-              <button className="btn-primary flex-1 px-4 py-2 whitespace-nowrap" onClick={onContinue}>
+              <button className="btn-primary flex-1 whitespace-nowrap" onClick={onContinue}>
                 🔥 Round {infiniteRound + 1}
               </button>
 
               {onSaveAndQuit && (
                 <button
-                  className="btn-surface flex-1 px-4 py-2 whitespace-nowrap"
+                  className="btn-surface flex-1 whitespace-nowrap"
                   onClick={() => {
                     onSaveAndQuit();
                     setTimeout(() => {
@@ -99,15 +99,15 @@ export default function QuizResult({
             </>
           ) : (
             <>
-              <button className="btn-primary flex-1 px-4 py-2 whitespace-nowrap" onClick={reloadQuiz}>
+              <button className="btn-primary flex-1 whitespace-nowrap" onClick={reloadQuiz}>
                 {translate("quiz.playAgain", lang)}
               </button>
 
-              <a href="/me" className="btn-surface flex-1 px-4 py-2 whitespace-nowrap">
+              <a href="/me" className="btn-surface flex-1 whitespace-nowrap">
                 {translate("quiz.myProfile", lang)}
               </a>
 
-              <a href="/highscores" className="btn-surface flex-1 px-4 py-2 whitespace-nowrap">
+              <a href="/highscores" className="btn-surface flex-1 whitespace-nowrap">
                 {translate("quiz.highScores", lang)}
               </a>
             </>

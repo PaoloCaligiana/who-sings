@@ -30,20 +30,24 @@ export default function HighScoresPage() {
 
   return (
     <div className="min-h-[70vh] mt-6">
-      <h1 className="text-2xl font-bold mb-2">{translate("highscores.title", lang)}</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-3 lg:mb-4">
+        {translate("highscores.title", lang)}
+      </h1>
 
-      <p className="text-sm text-muted mb-3">{translate("highscores.subtitle", lang)}</p>
+      <p className="text-sm md:text-base lg:text-lg text-muted mb-3 md:mb-4 lg:mb-5">
+        {translate("highscores.subtitle", lang)}
+      </p>
 
       <div className="card">
         {leaderboard.length === 0 ? (
-          <p className="text-sm text-muted">{translate("highscores.empty", lang)}</p>
+          <p className="text-sm md:text-base lg:text-lg text-muted">{translate("highscores.empty", lang)}</p>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 md:gap-4 lg:gap-5">
             {leaderboard.map((entry, index) => (
               <div key={entry.player}>
-                <div className="flex justify-between items-center gap-2">
-                  <div className="flex flex-row gap-6 ">
-                    <p className="text-sm">
+                <div className="flex justify-between items-center gap-2 md:gap-3 lg:gap-4">
+                  <div className="flex flex-row gap-6 md:gap-8 lg:gap-10">
+                    <p className="text-sm md:text-base lg:text-lg">
                       {index === 0 && "🥇 "}
                       {index === 1 && "🥈 "}
                       {index === 2 && "🥉 "}
@@ -56,13 +60,13 @@ export default function HighScoresPage() {
                       {index === 9 && "🔟 "}
                       <strong>{entry.player}</strong>
                     </p>
-                    {entry.mainGenre && (
-                      <p className="text-xs text-primary">
+                    {entry.mainGenre && index < 3 && (
+                      <p className="text-xs md:text-sm lg:text-base text-primary">
                         {translate(getTitleKey(index), lang).replace("{genre}", entry.mainGenre)}
                       </p>
                     )}
                   </div>
-                  <p className="text-sm font-semibold">{entry.bestScore}</p>
+                  <p className="text-sm md:text-base lg:text-lg font-semibold">{entry.bestScore}</p>
                 </div>
 
                 <div className="progress-track mt-1">

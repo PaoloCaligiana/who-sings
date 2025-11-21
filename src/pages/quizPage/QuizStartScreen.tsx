@@ -36,28 +36,30 @@ export default function QuizStartScreen({
 
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
-      <div className="card max-w-sm w-full flex flex-col gap-4">
+      <div className="card max-w-sm md:max-w-md lg:max-w-lg w-full flex flex-col gap-4 md:gap-6">
         {/* Icon + Title */}
         <div className="flex flex-col items-center">
-          <div className="text-4xl mb-4">{config.icon}</div>
-          <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">{config.title}</h2>
-          <p className="text-sm sm:text-base text-secondary ">{config.subtitle}</p>
+          <div className="text-4xl md:text-5xl lg:text-6xl mb-4">{config.icon}</div>
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-primary mb-2">{config.title}</h2>
+          <p className="text-sm md:text-base lg:text-lg text-secondary">{config.subtitle}</p>
         </div>
 
         {/* Warning (Infinite Mode) */}
         {config.showWarning && (
           <div className="flex justify-center">
-            <p className="text-xs sm:text-sm text-primary">⚡ {translate("quiz.endlessModeWarning", lang)}</p>
+            <p className="text-xs md:text-sm lg:text-base text-primary">
+              ⚡ {translate("quiz.endlessModeWarning", lang)}
+            </p>
           </div>
         )}
 
         {/* Buttons */}
-        <div className="flex flex-col gap-4 mt-4">
+        <div className="flex flex-col gap-4 md:gap-5 mt-4">
           <button className="btn-primary" disabled={questionsCount === 0} onClick={onStart}>
             {translate("quiz.startQuiz", lang)}
           </button>
 
-          <button className="btn-surface text-sm" onClick={onSwitchMode}>
+          <button className="btn-surface text-sm md:text-base" onClick={onSwitchMode}>
             ← {config.switchText}
           </button>
         </div>

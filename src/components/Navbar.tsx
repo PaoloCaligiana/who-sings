@@ -16,14 +16,14 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 flex items-center bg-black/20 backdrop-blur-sm px-4 sm:px-6 md:px-8 z-50">
+    <header className="fixed top-0 left-0 right-0 h-16 md:h-20 flex items-center bg-black/20 backdrop-blur-sm px-4 sm:px-6 md:px-8 lg:px-12 z-50">
       {/* Tutto a sinistra */}
-      <div className="font-bold text-sm sm:text-base md:text-lg">Who Sings?</div>
+      <div className="font-bold text-sm sm:text-base md:text-lg lg:text-xl">Who Sings?</div>
 
       {/* Spazio flessibile */}
       <div className="flex-1" />
 
-      <nav className="flex items-center gap-4 text-sm sm:text-base md:text-lg">
+      <nav className="flex items-center gap-4 md:gap-6 lg:gap-8 text-sm md:text-base lg:text-lg">
         {/* Centrali */}
         <Link className="nav-link hidden sm:inline-block" to="/quiz">
           {translate("navbar.play", lang)}

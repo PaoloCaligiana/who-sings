@@ -22,32 +22,36 @@ export default function UserPage() {
   return (
     <div className="min-h-[70vh] mt-6">
       {/* Titolo pagina */}
-      <h1 className="text-2xl font-bold mb-4">{translate("userpage.title", lang).replace("{player}", playerName)}</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
+        {translate("userpage.title", lang).replace("{player}", playerName)}
+      </h1>
 
       {/* Contenitore statistiche e medaglie */}
-      <div className="flex flex-col md:flex-row gap-3 mb-3">
+      <div className="flex flex-col md:flex-row gap-3 md:gap-4 lg:gap-5 mb-3 md:mb-4 lg:mb-5">
         {/* Card Statistiche */}
         <div className="card flex-1">
           <div>
-            <p className="text-base font-semibold mb-2">{translate("userpage.statsTitle", lang)}</p>
+            <p className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3 lg:mb-4">
+              {translate("userpage.statsTitle", lang)}
+            </p>
 
-            <div className="flex flex-row flex-wrap gap-6">
+            <div className="flex flex-row flex-wrap gap-6 md:gap-8 lg:gap-10">
               <div>
-                <p className="text-xl font-bold">{gamesPlayed}</p>
-                <p className="text-xs text-muted">{translate("userpage.gamesPlayed", lang)}</p>
+                <p className="text-xl md:text-2xl lg:text-3xl font-bold">{gamesPlayed}</p>
+                <p className="text-xs md:text-sm lg:text-base text-muted">{translate("userpage.gamesPlayed", lang)}</p>
               </div>
 
               <div>
-                <p className="text-xl font-bold">{bestScore}</p>
-                <p className="text-xs text-muted">{translate("userpage.bestScore", lang)}</p>
+                <p className="text-xl md:text-2xl lg:text-3xl font-bold">{bestScore}</p>
+                <p className="text-xs md:text-sm lg:text-base text-muted">{translate("userpage.bestScore", lang)}</p>
               </div>
 
               {/* Bottoni solo in Mobile */}
               <div className="flex-1 gap-3 flex sm:hidden">
-                <a href="/quiz" className="btn-primary flex-1 px-4 py-2 whitespace-nowrap">
+                <a href="/quiz" className="btn-primary flex-1 whitespace-nowrap">
                   {translate("navbar.play", lang)}
                 </a>
-                <a href="/highscores" className="btn-surface flex-1 px-4 py-2 whitespace-nowrap">
+                <a href="/highscores" className="btn-surface flex-1 whitespace-nowrap">
                   {translate("navbar.highScores", lang)}
                 </a>
               </div>
@@ -58,25 +62,27 @@ export default function UserPage() {
         {/* Card Medaglie */}
         <div className="card flex-1">
           <div>
-            <p className="text-base font-semibold mb-2">{translate("userpage.badgesTitle", lang)}</p>
+            <p className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3 lg:mb-4">
+              {translate("userpage.badgesTitle", lang)}
+            </p>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 md:gap-3">
               {/* Medaglia 1 */}
               <span className={`chip ${gamesPlayed >= 1 ? "chip-filled" : "chip-outlined"}`}>
-                <span>🥉</span>
-                <span>{translate("userpage.badge.firstPlay", lang)}</span>
+                <span className="text-base md:text-lg">🥉</span>
+                <span className="text-sm md:text-base">{translate("userpage.badge.firstPlay", lang)}</span>
               </span>
 
               {/* Medaglia 2 */}
               <span className={`chip ${highScoreUnlocked ? "chip-filled" : "chip-outlined"}`}>
-                <span>👑</span>
-                <span>{translate("userpage.badge.highRoller", lang)}</span>
+                <span className="text-base md:text-lg">👑</span>
+                <span className="text-sm md:text-base">{translate("userpage.badge.highRoller", lang)}</span>
               </span>
 
               {/* Medaglia 3 */}
               <span className={`chip ${hotStreakUnlocked ? "chip-filled" : "chip-outlined"}`}>
-                <span>🔥</span>
-                <span>{translate("userpage.badge.hotStreak", lang)}</span>
+                <span className="text-base md:text-lg">🔥</span>
+                <span className="text-sm md:text-base">{translate("userpage.badge.hotStreak", lang)}</span>
               </span>
             </div>
           </div>
@@ -85,11 +91,13 @@ export default function UserPage() {
 
       {/* Card Ultime partite */}
       <div className="card">
-        <p className="text-base font-semibold mb-2">{translate("userpage.recentGamesTitle", lang)}</p>
+        <p className="text-base md:text-lg lg:text-xl font-semibold mb-2 md:mb-3 lg:mb-4">
+          {translate("userpage.recentGamesTitle", lang)}
+        </p>
 
         {last10.length === 0 ? (
           // Nessuna partita registrata
-          <p className="text-sm text-muted">{translate("userpage.noGames", lang)}</p>
+          <p className="text-sm md:text-base lg:text-lg text-muted">{translate("userpage.noGames", lang)}</p>
         ) : (
           <div>
             {last10.map((r, index) => (
@@ -98,11 +106,11 @@ export default function UserPage() {
                 {index > 0 && <div className="divider"></div>}
 
                 {/* Riga partita */}
-                <div className="flex justify-between items-center py-1 flex-wrap gap-1">
-                  <p className="text-sm">
+                <div className="flex justify-between items-center py-1 md:py-2 flex-wrap gap-1">
+                  <p className="text-sm md:text-base lg:text-lg">
                     {new Date(r.createdAt).toLocaleString()}{" "}
                     {r.mode === "infinite" && (
-                      <span className="text-xs text-primary font-semibold">
+                      <span className="text-xs md:text-sm lg:text-base text-primary font-semibold">
                         ∞ {r.rounds || 1} {r.rounds === 1 ? "round" : "rounds"}
                       </span>
                     )}
@@ -110,7 +118,9 @@ export default function UserPage() {
                     <strong>
                       {r.score}/{r.totalQuestions}
                     </strong>
-                    {r.maxStreak && r.maxStreak >= 3 && <span className="text-xs ml-1">🔥 {r.maxStreak}</span>}
+                    {r.maxStreak && r.maxStreak >= 3 && (
+                      <span className="text-xs md:text-sm ml-1">🔥 {r.maxStreak}</span>
+                    )}
                   </p>
                 </div>
               </div>
