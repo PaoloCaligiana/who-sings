@@ -1,5 +1,3 @@
-import { currentScoresStorage } from "./currentScoresStorage";
-
 const PLAYER_KEY = "pc-who-sings-current-player";
 
 export function saveCurrentPlayer(name: string) {
@@ -10,7 +8,6 @@ export function getCurrentPlayer(): string | null {
   return localStorage.getItem(PLAYER_KEY);
 }
 
-export function logoutPlayer() {
+export function clearPlayer() {
   localStorage.removeItem(PLAYER_KEY);
-  currentScoresStorage.clear();
 }

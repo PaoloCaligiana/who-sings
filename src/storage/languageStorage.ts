@@ -12,3 +12,7 @@ export function getSavedLanguage(): Lang {
   const raw = localStorage.getItem(LANGUAGE_KEY);
   return isValidLang(raw) ? raw : "en";
 }
+
+export function clearLanguage() {
+  localStorage.removeItem(LANGUAGE_KEY);
+}

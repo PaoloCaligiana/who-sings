@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { getCurrentPlayer, logoutPlayer } from '../storage/playerStorage';
+import { getCurrentPlayer } from '../storage/playerStorage';
 import { useLang } from '../i18n/LangContext';
 import { LanguageSwitcher } from './LanguageSwithcer';
 import { translate } from '../i18n/utils';
+import { logout } from '../storage/logoutManager';
 
 export default function Navbar() {
     const { lang } = useLang();
@@ -10,7 +11,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        logoutPlayer();
+        logout();
         navigate("/login");
     };
 

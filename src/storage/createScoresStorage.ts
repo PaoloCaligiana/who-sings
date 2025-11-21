@@ -1,11 +1,20 @@
 import type { GameResult } from "../types";
 
+const MAX_RESULTS = 500;
+
 export function createScoreStorage(storageKey: string) {
   return {
     saveGameResult(result: GameResult) {
       const raw = localStorage.getItem(storageKey);
       const list: GameResult[] = raw ? JSON.parse(raw) : [];
+
       list.push(result);
+
+      // Mantieni solo gli ultimi MAX_RESULTS
+      if (list.length > MAX_RESULTS) {
+        list.splice(0, list.length - MAX_RESULTS); // rimuove i più vecchi
+      }
+
       localStorage.setItem(storageKey, JSON.stringify(list));
     },
 
