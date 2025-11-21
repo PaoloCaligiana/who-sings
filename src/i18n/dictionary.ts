@@ -6,9 +6,9 @@ export const dictionary = {
   },
 
   "login.subtitle": {
-    en: "Enter your nickname to start playing.",
-    it: "Inserisci il tuo nickname per giocare.",
-    es: "Ingresa tu nickname para comenzar a jugar.",
+    en: "Enter your nickname to start playing.\nPractice with the most popular songs, updated daily!",
+    it: "Inserisci il tuo nickname per giocare.\nEsercitati sui brani piu' popolari, aggiornati ogni giorno!",
+    es: "Ingresa tu nickname para comenzar a jugar.\n¡Practica con las canciones más populares, actualizadas a diario!",
   },
 
   "login.placeholder": {
@@ -32,13 +32,13 @@ export const dictionary = {
   "login.highscoresButton": {
     en: "Global leaderboard",
     it: "Classifica generale",
-    es: "Clasificación general",
+    es: "Clasificación global",
   },
 
   "login.errorMinLength": {
     en: "At least 3 characters required",
     it: "Minimo 3 caratteri richiesti",
-    es: "Mínimo 3 caracteres requeridos",
+    es: "Se requieren al menos 3 caracteres",
   },
 
   "login.errorMaxLength": {
@@ -80,7 +80,7 @@ export const dictionary = {
   "quiz.retrySubtitle": {
     en: "Do you want to try again to improve your score?",
     it: "Vuoi ritentare per scalare la classifica?",
-    es: "¿Quieres intentarlo de nuevo para subir en la clasificación?",
+    es: "¿Quieres intentarlo de nuevo para mejorar tu puntuación?",
   },
 
   "quiz.playAgain": {
@@ -102,7 +102,7 @@ export const dictionary = {
   },
 
   "quiz.errorTitle": {
-    en: "Failed to Load Quiz",
+    en: "Failed to load quiz",
     it: "Errore nel caricamento del quiz",
     es: "Error al cargar el quiz",
   },
@@ -114,7 +114,7 @@ export const dictionary = {
   },
 
   "quiz.tryAgain": {
-    en: "Try Again",
+    en: "Try again",
     it: "Riprova",
     es: "Intentar de nuevo",
   },
@@ -146,7 +146,7 @@ export const dictionary = {
   "quiz.readyToStart": {
     en: "Ready to start?",
     it: "Pronto per iniziare?",
-    es: "Listo para empezar?",
+    es: "¿Listo para empezar?",
   },
 
   "quiz.questionsLoaded": {
@@ -164,7 +164,7 @@ export const dictionary = {
   "quiz.endlessModeWarning": {
     en: "Game ends on first mistake!",
     it: "La partita termina al primo errore!",
-    es: "El juego termina en el primer error!",
+    es: "¡El juego termina con el primer error!",
   },
 
   "quiz.startQuiz": {
@@ -174,9 +174,9 @@ export const dictionary = {
   },
 
   "quiz.motivational1": {
-    en: "Very Good! Keep it up! 👍",
+    en: "Very good! Keep it up! 👍",
     it: "Buono! Continua così! 👍",
-    es: "¡Bueno! ¡Sigue así! 👍",
+    es: "¡Muy bien! ¡Sigue así! 👍",
   },
 
   "quiz.motivational2": {
@@ -188,7 +188,7 @@ export const dictionary = {
   "quiz.motivational3": {
     en: "Wow, you're climbing all the leaderboards! 🚀",
     it: "Wow, stai scalando tutte le classifiche! 🚀",
-    es: "¡Wow, estás escalando todas las clasificaciones! 🚀",
+    es: "¡Wow, estás subiendo en todas las clasificaciones! 🚀",
   },
 
   "quiz.motivational4": {
@@ -230,7 +230,7 @@ export const dictionary = {
   "quiz.victory3": {
     en: "Legendary status achieved! You're the champion! 👑",
     it: "Status leggendario raggiunto! Sei il campione! 👑",
-    es: "¡Estado legendario alcanzado! ¡Eres el campeón! 👑",
+    es: "¡Has alcanzado estatus legendario! ¡Eres el campeón! 👑",
   },
 
   "quiz.victory4": {
@@ -398,7 +398,7 @@ export const dictionary = {
   "userpage.badge.highRoller": {
     en: "High Roller - You scored at least 9 points",
     it: "High Roller - Hai fatto almeno 9 punti",
-    es: "High Roller - Has hecho al menos 9 puntos",
+    es: "High Roller - Has conseguido al menos 9 puntos",
   },
 
   "userpage.badge.hotStreak": {

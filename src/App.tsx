@@ -6,7 +6,6 @@ import { RequirePlayer } from "./app/guards/RequirePlayer";
 import QuizPage from "./pages/quizPage/QuizPage";
 import UserPage from "./pages/userPage/UserPage";
 import HighScoresPage from "./pages/highScoresPage/HighScoresPage";
-import TestApi from "./pages/testAPI/TestApi";
 
 
 export default function App() {
@@ -65,14 +64,6 @@ export default function App() {
           }
         />
 
-        <Route
-          path="/test"
-          element={
-            <AppLayout>
-              <TestApi />
-            </AppLayout>
-          }
-        />
       </Routes>
     </BrowserRouter>
   );
