@@ -6,6 +6,7 @@ export interface QuizCard {
   lyricLine: string;
   correctArtist: string;
   options: string[]; // 3 nomi, già mescolati
+  music_genre_name: string; // genere musicale della canzone
 }
 
 export interface GameResult {
@@ -16,6 +17,7 @@ export interface GameResult {
   mode?: QuizMode; // normal | infinite
   rounds?: number; // numero di round completati (solo per infinite)
   maxStreak?: number; // streak massima raggiunta
+  mainGenre?: string; // genere musicale più indovinato nella partita
 }
 
 export interface ChartTrackEntry {

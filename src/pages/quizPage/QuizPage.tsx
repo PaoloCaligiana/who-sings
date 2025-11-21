@@ -57,7 +57,8 @@ export default function QuizPage() {
         createdAt: new Date().toISOString(),
         mode,
         rounds: isInfinite ? quiz.infiniteRound : 1,
-        maxStreak: finalMaxStreak
+        maxStreak: finalMaxStreak,
+        mainGenre: quiz.getMostFrequentGenre()
       };
 
       globalScoresStorage.saveGameResult(gameResult);
@@ -68,10 +69,12 @@ export default function QuizPage() {
         score: finalScore,
         maxStreak: finalMaxStreak,
         rounds: gameResult.rounds,
-        totalQuestions: gameResult.totalQuestions
+        totalQuestions: gameResult.totalQuestions,
+        mainGenre: gameResult.mainGenre
       });
     }
-  }, [quiz.status, playerName, quiz.score, quiz.totalScore, quiz.maxStreak, quiz.streak, quiz.infiniteRound, quiz.shouldSaveEndlessSession, mode, config.questions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quiz.status, playerName, quiz.score, quiz.totalScore, quiz.maxStreak, quiz.streak, quiz.infiniteRound, quiz.shouldSaveEndlessSession, quiz.getMostFrequentGenre, mode, config.questions]);
 
   /* ========================================================================== */
   /*                       RENDER: LOADING / START BUTTON / ERROR               */

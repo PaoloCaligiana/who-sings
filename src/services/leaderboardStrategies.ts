@@ -8,21 +8,28 @@ export interface LeaderboardStrategy {
 export interface LeaderboardEntry {
   player: string;
   bestScore: number;
+  mainGenre?: string; // Genere musicale principale del giocatore
 }
 
 // Strategia 1 – Miglior punteggio per giocatore
 export const bestScorePerPlayer: LeaderboardStrategy = {
   name: "best-per-player",
   compute(results) {
-    const byPlayer = new Map<string, number>();
+    const byPlayer = new Map<string, GameResult>();
 
     results.forEach(r => {
-      const current = byPlayer.get(r.playerName) ?? 0;
-      byPlayer.set(r.playerName, Math.max(current, r.score));
+      const current = byPlayer.get(r.playerName);
+      if (!current || r.score > current.score) {
+        byPlayer.set(r.playerName, r);
+      }
     });
 
     return Array.from(byPlayer.entries())
-      .map(([player, score]) => ({ player, bestScore: score }))
+      .map(([player, gameResult]) => ({ 
+        player, 
+        bestScore: gameResult.score,
+        mainGenre: gameResult.mainGenre 
+      }))
       .sort((a, b) => b.bestScore - a.bestScore);
   }
 };

@@ -31,6 +31,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const [maxStreak, setMaxStreak] = useState(0); // Streak massima raggiunta
   const [isLegendary, setIsLegendary] = useState(false); // Nuovo record mondiale
   const [shouldSaveEndlessSession, setShouldSaveEndlessSession] = useState(false); // Flag per salvare sessione endless
+  const [correctGenres, setCorrectGenres] = useState<string[]>([]); // Generi delle risposte corrette
 
   /* -------------------------------------------------------------------------- */
   /*                            CARICAMENTO INIZIALE                              */
@@ -79,6 +80,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
       setInfiniteRound(1);
       setMaxStreak(0);
       setShouldSaveEndlessSession(false);
+      setCorrectGenres([]);
     }
 
     async function reload() {
@@ -176,9 +178,31 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     // Non resetta streak in infinite mode (viene mantenuta tra i round)
     if (!finishOnWrongAnswer) {
       setStreak(0);
+      setCorrectGenres([]); // Reset generi in modalità normale
     }
     setSelectedOption(null);
     setStatus("answering");
+  };
+
+  /** Calcola il genere più frequente tra quelli indovinati */
+  const getMostFrequentGenre = (): string | undefined => {
+    if (correctGenres.length === 0) return undefined;
+
+    const genreCount: Record<string, number> = {};
+    correctGenres.forEach((genre) => {
+      genreCount[genre] = (genreCount[genre] || 0) + 1;
+    });
+
+    let maxCount = 0;
+    let mostFrequent = correctGenres[0];
+    Object.entries(genreCount).forEach(([genre, count]) => {
+      if (count > maxCount) {
+        maxCount = count;
+        mostFrequent = genre;
+      }
+    });
+
+    return mostFrequent;
   };
 
   /** Gestisce il passaggio alla domanda successiva */
@@ -239,7 +263,11 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
       }
       return newStreak;
     });
-    if (isCorrect) setScore((s) => s + 1);
+    if (isCorrect) {
+      setScore((s) => s + 1);
+      // Traccia il genere della risposta corretta
+      setCorrectGenres((genres) => [...genres, currentQuestion.music_genre_name]);
+    }
 
     setStatus("feedback");
 
@@ -278,6 +306,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     maxStreak, // Streak massima raggiunta nell'intera sessione
     isLegendary, // Indica se ha battuto il record mondiale
     shouldSaveEndlessSession, // Flag per salvare la sessione endless solo quando termina
+    getMostFrequentGenre, // Calcola genere più indovinato
 
     // Actions
     startGame,

@@ -85,6 +85,7 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
     lyricLine,
     correctArtist: correctTrack.artist_name,
     options,
+    music_genre_name: correctTrack.music_genre_name,
   };
 }
 

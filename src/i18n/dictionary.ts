@@ -299,6 +299,66 @@ export const dictionary = {
     es: "#{pos} ",
   },
 
+  "highscores.title1": {
+    en: "Legend of {genre}",
+    it: "Leggenda del {genre}",
+    es: "Leyenda del {genre}",
+  },
+
+  "highscores.title2": {
+    en: "Master of {genre}",
+    it: "Maestro del {genre}",
+    es: "Maestro del {genre}",
+  },
+
+  "highscores.title3": {
+    en: "Soul of {genre}",
+    it: "Anima del {genre}",
+    es: "Alma del {genre}",
+  },
+
+  "highscores.title4": {
+    en: "Champion of {genre}",
+    it: "Campione del {genre}",
+    es: "Campeón del {genre}",
+  },
+
+  "highscores.title5": {
+    en: "Wizard of {genre}",
+    it: "Mago del {genre}",
+    es: "Mago del {genre}",
+  },
+
+  "highscores.title6": {
+    en: "Guru of {genre}",
+    it: "Guru del {genre}",
+    es: "Gurú del {genre}",
+  },
+
+  "highscores.title7": {
+    en: "Hero of {genre}",
+    it: "Eroe del {genre}",
+    es: "Héroe del {genre}",
+  },
+
+  "highscores.title8": {
+    en: "Ace of {genre}",
+    it: "Asso del {genre}",
+    es: "As del {genre}",
+  },
+
+  "highscores.title9": {
+    en: "Star of {genre}",
+    it: "Stella del {genre}",
+    es: "Estrella del {genre}",
+  },
+
+  "highscores.title10": {
+    en: "Icon of {genre}",
+    it: "Icona del {genre}",
+    es: "Ícono del {genre}",
+  },
+
   "userpage.title": {
     en: "Hi, {player} 👋",
     it: "Ciao, {player} 👋",
