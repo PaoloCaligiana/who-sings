@@ -12,9 +12,9 @@ export const dictionary = {
   },
 
   "login.placeholder": {
-    en: "Player nickname",
-    it: "Nickname giocatore",
-    es: "Nickname jugador",
+    en: "Nickname",
+    it: "Nickname",
+    es: "Nickname",
   },
 
   "login.normalModeButton": {

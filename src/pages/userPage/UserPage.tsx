@@ -20,10 +20,10 @@ export default function UserPage() {
     (r) => (r.maxStreak || 0) >= 5
   );
   return (
-    <div>
+    <div className="min-h-[70vh] mt-6">
 
       {/* Titolo pagina */}
-      <h1 className="text-2xl font-bold mb-2">
+      <h1 className="text-2xl font-bold mb-4">
         {translate("userpage.title", lang).replace("{player}", playerName)}
       </h1>
 
@@ -51,6 +51,16 @@ export default function UserPage() {
                 <p className="text-xs text-muted">
                   {translate("userpage.bestScore", lang)}
                 </p>
+              </div>
+
+              {/* Bottoni solo in Mobile */}
+              <div className="flex-1 gap-3 flex sm:hidden">
+                <a href="/quiz" className="btn-primary flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap">
+                  {translate("navbar.play", lang)}
+                </a>
+                <a href="/highscores" className="btn-surface flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap">
+                  {translate("navbar.highScores", lang)}
+                </a>
               </div>
 
             </div>
