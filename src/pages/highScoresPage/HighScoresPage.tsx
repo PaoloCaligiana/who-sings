@@ -14,33 +14,33 @@ export default function HighScoresPage() {
 
   const getTitleKey = (position: number) => {
     const titles = [
-      "highscores.title1", "highscores.title2", "highscores.title3", "highscores.title4",
-      "highscores.title5", "highscores.title6", "highscores.title7", "highscores.title8",
-      "highscores.title9", "highscores.title10"
+      "highscores.title1",
+      "highscores.title2",
+      "highscores.title3",
+      "highscores.title4",
+      "highscores.title5",
+      "highscores.title6",
+      "highscores.title7",
+      "highscores.title8",
+      "highscores.title9",
+      "highscores.title10",
     ] as const;
     return titles[position] || titles[0];
   };
 
   return (
     <div className="min-h-[70vh] mt-6">
-      <h1 className="text-2xl font-bold mb-2">
-        {translate("highscores.title", lang)}
-      </h1>
+      <h1 className="text-2xl font-bold mb-2">{translate("highscores.title", lang)}</h1>
 
-      <p className="text-sm text-muted mb-3">
-        {translate("highscores.subtitle", lang)}
-      </p>
+      <p className="text-sm text-muted mb-3">{translate("highscores.subtitle", lang)}</p>
 
       <div className="card">
         {leaderboard.length === 0 ? (
-          <p className="text-sm text-muted">
-            {translate("highscores.empty", lang)}
-          </p>
+          <p className="text-sm text-muted">{translate("highscores.empty", lang)}</p>
         ) : (
           <div className="flex flex-col gap-3">
             {leaderboard.map((entry, index) => (
               <div key={entry.player}>
-
                 <div className="flex justify-between items-center gap-2">
                   <div className="flex flex-row gap-6 ">
                     <p className="text-sm">
@@ -66,12 +66,8 @@ export default function HighScoresPage() {
                 </div>
 
                 <div className="progress-track mt-1">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${(entry.bestScore / maxScore) * 100}%` }}
-                  />
+                  <div className="progress-fill" style={{ width: `${(entry.bestScore / maxScore) * 100}%` }} />
                 </div>
-
               </div>
             ))}
           </div>

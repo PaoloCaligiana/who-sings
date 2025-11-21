@@ -3,7 +3,6 @@ import { isValidLang } from "../i18n/utils";
 
 const LANGUAGE_KEY = "pc-who-sings-language";
 
-
 export function saveLanguage(lang: Lang) {
   localStorage.setItem(LANGUAGE_KEY, lang);
 }

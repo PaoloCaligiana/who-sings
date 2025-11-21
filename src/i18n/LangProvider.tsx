@@ -11,9 +11,5 @@ export function LangProvider({ children }: { children: ReactNode }) {
     setLang(l);
   };
 
-  return (
-    <LangContext.Provider value={{ lang, setLang: update }}>
-      {children}
-    </LangContext.Provider>
-  );
+  return <LangContext.Provider value={{ lang, setLang: update }}>{children}</LangContext.Provider>;
 }

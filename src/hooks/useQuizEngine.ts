@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import type { QuizCard } from "../types";
 import { preloadQuizCards } from "../api/quizGenerator";
-import { getInfiniteProgress, saveInfiniteProgress, clearInfiniteProgress, saveQuizMode } from "../storage/quizSessionStorage";
+import {
+  getInfiniteProgress,
+  saveInfiniteProgress,
+  clearInfiniteProgress,
+  saveQuizMode,
+} from "../storage/quizSessionStorage";
 import { globalScoresStorage } from "../storage/globalScoresStorage";
 
 type QuizStatus = "loadingQuestions" | "ready" | "answering" | "feedback" | "finished" | "error";

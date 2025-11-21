@@ -13,7 +13,7 @@ import QuizErrorScreen from "./QuizErrorScreen";
 
 const QUIZ_CONFIG = {
   normal: { questions: 7, time: 7, finishOnWrongAnswer: false },
-  infinite: { questions: 7, time: 7, finishOnWrongAnswer: true }
+  infinite: { questions: 7, time: 7, finishOnWrongAnswer: true },
 } as const;
 
 export default function QuizPage() {
@@ -23,7 +23,7 @@ export default function QuizPage() {
 
   const quiz = useQuizEngine({
     totalQuestions: config.questions,
-    finishOnWrongAnswer: config.finishOnWrongAnswer
+    finishOnWrongAnswer: config.finishOnWrongAnswer,
   });
 
   const { timeLeft } = useQuestionTimer({
@@ -39,11 +39,11 @@ export default function QuizPage() {
   useEffect(() => {
     if (quiz.status === "finished") {
       const isInfinite = mode === "infinite";
-      
+
       // In modalità infinite, salva SOLO se la sessione è terminata (errore/timeout)
       // Non salvare quando l'utente preme "Continue" per il prossimo round
       if (isInfinite && !quiz.shouldSaveEndlessSession) {
-        console.log('[Quiz] Sessione infinite continuata, non salvo ancora');
+        console.log("[Quiz] Sessione infinite continuata, non salvo ancora");
         return;
       }
 
@@ -58,23 +58,35 @@ export default function QuizPage() {
         mode,
         rounds: isInfinite ? quiz.infiniteRound : 1,
         maxStreak: finalMaxStreak,
-        mainGenre: quiz.getMostFrequentGenre()
+        mainGenre: quiz.getMostFrequentGenre(),
       };
 
       globalScoresStorage.saveGameResult(gameResult);
       currentScoresStorage.saveGameResult(gameResult);
 
-      console.log('[Quiz] Partita salvata:', {
+      console.log("[Quiz] Partita salvata:", {
         mode,
         score: finalScore,
         maxStreak: finalMaxStreak,
         rounds: gameResult.rounds,
         totalQuestions: gameResult.totalQuestions,
-        mainGenre: gameResult.mainGenre
+        mainGenre: gameResult.mainGenre,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quiz.status, playerName, quiz.score, quiz.totalScore, quiz.maxStreak, quiz.streak, quiz.infiniteRound, quiz.shouldSaveEndlessSession, quiz.getMostFrequentGenre, mode, config.questions]);
+  }, [
+    quiz.status,
+    playerName,
+    quiz.score,
+    quiz.totalScore,
+    quiz.maxStreak,
+    quiz.streak,
+    quiz.infiniteRound,
+    quiz.shouldSaveEndlessSession,
+    quiz.getMostFrequentGenre,
+    mode,
+    config.questions,
+  ]);
 
   /* ========================================================================== */
   /*                       RENDER: LOADING / START BUTTON / ERROR               */
@@ -84,7 +96,16 @@ export default function QuizPage() {
 
   if (quiz.status === "error") return <QuizErrorScreen errorMessage={quiz.errorMessage} reloadQuiz={quiz.reloadQuiz} />;
 
-  if (quiz.status === "ready") return <QuizStartScreen onStart={quiz.startGame} onSwitchMode={quiz.switchMode} questionsCount={quiz.questions.length} isInfiniteMode={mode === "infinite"} infiniteRound={quiz.infiniteRound} />;
+  if (quiz.status === "ready")
+    return (
+      <QuizStartScreen
+        onStart={quiz.startGame}
+        onSwitchMode={quiz.switchMode}
+        questionsCount={quiz.questions.length}
+        isInfiniteMode={mode === "infinite"}
+        infiniteRound={quiz.infiniteRound}
+      />
+    );
 
   /* ========================================================================== */
   /*                            RENDER: QUIZ FINITO                              */
@@ -102,7 +123,7 @@ export default function QuizPage() {
         totalQuestions={isInfinite ? quiz.infiniteRound * config.questions : config.questions}
         reloadQuiz={quiz.reloadQuiz}
         isInfiniteMode={isInfinite}
-        infiniteRound={quiz.infiniteRound} 
+        infiniteRound={quiz.infiniteRound}
         isLegendary={quiz.isLegendary}
         canContinue={canContinue}
         onContinue={canContinue ? quiz.continueInfinite : undefined}

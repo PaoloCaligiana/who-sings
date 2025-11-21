@@ -10,12 +10,16 @@ export default function LoginPage() {
   const { lang } = useLang();
   const { login } = useLogin();
   const [name, setName] = useState("");
-  const [error, setError] = useState<"login.errorMinLength" | "login.errorMaxLength" | "login.errorNoSpaces" | null>(null);
+  const [error, setError] = useState<"login.errorMinLength" | "login.errorMaxLength" | "login.errorNoSpaces" | null>(
+    null
+  );
   const [touched, setTouched] = useState(false);
   const MIN_CHARS = 3;
   const MAX_CHARS = 8;
 
-  const validateName = (value: string): "login.errorMinLength" | "login.errorMaxLength" | "login.errorNoSpaces" | null => {
+  const validateName = (
+    value: string
+  ): "login.errorMinLength" | "login.errorMaxLength" | "login.errorNoSpaces" | null => {
     if (!value) return null; // Non mostra errore se completamente vuoto
     if (value.includes(" ")) return "login.errorNoSpaces";
     if (value.length < MIN_CHARS) return "login.errorMinLength";
@@ -56,14 +60,9 @@ export default function LoginPage() {
   return (
     <div className="flex items-center justify-center min-h-[70vh]">
       <div className="card max-w-sm w-full flex flex-col gap-4">
-
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">
-            {translate("login.title", lang)}
-          </h1>
-          <p className="text-sm sm:text-base text-secondary ">
-            {translate("login.subtitle", lang)}
-          </p>
+          <h1 className="text-xl sm:text-2xl font-bold text-primary mb-4">{translate("login.title", lang)}</h1>
+          <p className="text-sm sm:text-base text-secondary ">{translate("login.subtitle", lang)}</p>
         </div>
 
         <input
@@ -76,33 +75,17 @@ export default function LoginPage() {
           maxLength={MAX_CHARS}
         />
 
-        {error && touched && (
-          <p className="text-xs text-orange-400 -mt-2">
-            ⚠ {translate(error, lang)}
-          </p>
-        )}
+        {error && touched && <p className="text-xs text-orange-400 -mt-2">⚠ {translate(error, lang)}</p>}
 
         <div className="flex flex-col gap-3 pt-2">
-          <button
-            onClick={() => handleSubmit("normal")}
-            className="btn-primary"
-            disabled={!name.trim() || !!error}
-          >
+          <button onClick={() => handleSubmit("normal")} className="btn-primary" disabled={!name.trim() || !!error}>
             {translate("login.normalModeButton", lang)}
           </button>
 
-          <button
-            onClick={() => handleSubmit("infinite")}
-            className="btn-surface"
-            disabled={!name.trim() || !!error}
-          >
+          <button onClick={() => handleSubmit("infinite")} className="btn-surface" disabled={!name.trim() || !!error}>
             {translate("login.endlessModeButton", lang)} ∞
           </button>
-
-          {/* <Link className="btn-surface sm:hidden" to="/highscores">{translate("login.highscoresButton", lang)}</Link> */}
-
         </div>
-
       </div>
     </div>
   );

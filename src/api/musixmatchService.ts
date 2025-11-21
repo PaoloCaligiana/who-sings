@@ -32,6 +32,6 @@ export async function getOrLoadChartTracks(countryCode?: string): Promise<ChartT
     return parsed;
   } catch (error) {
     console.error("Failed to fetch chart tracks:", error);
-    return []; 
+    return [];
   }
 }

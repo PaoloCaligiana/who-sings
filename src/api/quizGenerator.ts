@@ -3,7 +3,6 @@ import type { ChartTrackEntry, QuizCard } from "../types";
 import { fetchLyricsByCommontrack } from "./musixMatchApi";
 import { getOrLoadChartTracks } from "./musixmatchService";
 
-
 const QUIZ_OPTIONS_COUNT = 3; // Numero di opzioni per domanda
 const MAX_ATTEMPT_MULTIPLIER = 5; // Tentativi massimi = n * multiplier
 
@@ -21,26 +20,23 @@ function shuffle<T>(arr: T[]): T[] {
 
 function cleanLyrics(raw: string): string[] {
   const lines: string[] = [];
-  
+
   for (const line of raw.split("\n")) {
     const trimmed = line.trim();
-    
+
     if (trimmed.length === 0) continue;
     if (trimmed.startsWith("*")) continue;
     if (trimmed.includes("Lorem ipsum")) continue;
     if (trimmed.includes("This Lyrics is NOT available")) continue;
     if (trimmed.split(" ").length < 3) continue;
-    
+
     lines.push(trimmed);
   }
-  
+
   return lines;
 }
 
-function filterTracks(
-  tracks: ChartTrackEntry[],
-  filters: { genre?: string; artist?: string }
-): ChartTrackEntry[] {
+function filterTracks(tracks: ChartTrackEntry[], filters: { genre?: string; artist?: string }): ChartTrackEntry[] {
   return tracks.filter((track) => {
     if (filters.genre && track.music_genre_name?.toLowerCase() !== filters.genre.toLowerCase()) {
       return false;
@@ -56,7 +52,11 @@ function filterTracks(
    🎯 generateQuizCard()
 --------------------------- */
 
-export async function generateQuizCard(artistName?: string, musicGenre?: string, country?: Country): Promise<QuizCard | null> {
+export async function generateQuizCard(
+  artistName?: string,
+  musicGenre?: string,
+  country?: Country
+): Promise<QuizCard | null> {
   const tracksData = await getOrLoadChartTracks(country);
   if (!tracksData.length) return null;
 
@@ -80,11 +80,7 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
 
   // Get unique artists excluding the correct one
   const uniqueArtists = Array.from(
-    new Set(
-      finalTracks
-        .filter((t) => t.artist_name !== correctTrack.artist_name)
-        .map((t) => t.artist_name)
-    )
+    new Set(finalTracks.filter((t) => t.artist_name !== correctTrack.artist_name).map((t) => t.artist_name))
   );
 
   // Need at least QUIZ_OPTIONS_COUNT - 1 other artists
@@ -108,7 +104,12 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
    ⚡ preloadQuizCards() with safe parallelism
 --------------------------- */
 
-export async function preloadQuizCards(n: number, artistName?: string, musicGenre?: string, country?: Country): Promise<QuizCard[]> {
+export async function preloadQuizCards(
+  n: number,
+  artistName?: string,
+  musicGenre?: string,
+  country?: Country
+): Promise<QuizCard[]> {
   const cards: QuizCard[] = [];
 
   const MAX_ATTEMPTS = n * MAX_ATTEMPT_MULTIPLIER;

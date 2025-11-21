@@ -17,7 +17,7 @@ export const bestScorePerPlayer: LeaderboardStrategy = {
   compute(results) {
     const byPlayer = new Map<string, GameResult>();
 
-    results.forEach(r => {
+    results.forEach((r) => {
       const current = byPlayer.get(r.playerName);
       if (!current || r.score > current.score) {
         byPlayer.set(r.playerName, r);
@@ -25,15 +25,14 @@ export const bestScorePerPlayer: LeaderboardStrategy = {
     });
 
     return Array.from(byPlayer.entries())
-      .map(([player, gameResult]) => ({ 
-        player, 
+      .map(([player, gameResult]) => ({
+        player,
         bestScore: gameResult.score,
-        mainGenre: gameResult.mainGenre 
+        mainGenre: gameResult.mainGenre,
       }))
       .sort((a, b) => b.bestScore - a.bestScore);
-  }
+  },
 };
-
 
 // Strategia 2 – Top 3 risultati per ogni giocatore
 export const top3PerPlayer: LeaderboardStrategy = {
@@ -41,7 +40,7 @@ export const top3PerPlayer: LeaderboardStrategy = {
   compute(results) {
     const byPlayer = new Map<string, GameResult[]>();
 
-    results.forEach(r => {
+    results.forEach((r) => {
       if (!byPlayer.has(r.playerName)) byPlayer.set(r.playerName, []);
       byPlayer.get(r.playerName)!.push(r);
     });
@@ -50,9 +49,9 @@ export const top3PerPlayer: LeaderboardStrategy = {
       scores
         .sort((a, b) => b.score - a.score)
         .slice(0, 3)
-        .map(r => ({ player, bestScore: r.score }))
+        .map((r) => ({ player, bestScore: r.score }))
     );
 
     return entries.sort((a, b) => b.bestScore - a.bestScore);
-  }
+  },
 };

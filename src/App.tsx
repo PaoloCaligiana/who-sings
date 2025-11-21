@@ -7,7 +7,6 @@ import QuizPage from "./pages/quizPage/QuizPage";
 import UserPage from "./pages/userPage/UserPage";
 import HighScoresPage from "./pages/highScoresPage/HighScoresPage";
 
-
 export default function App() {
   return (
     <BrowserRouter>
@@ -16,10 +15,7 @@ export default function App() {
           path="/"
           element={
             <AppLayout>
-              {getCurrentPlayer()
-                ? <Navigate to="/quiz" replace />
-                : <Navigate to="/login" replace />
-              }
+              {getCurrentPlayer() ? <Navigate to="/quiz" replace /> : <Navigate to="/login" replace />}
             </AppLayout>
           }
         />
@@ -33,7 +29,7 @@ export default function App() {
           }
         />
 
-           <Route
+        <Route
           path="/quiz"
           element={
             <AppLayout>
@@ -63,7 +59,6 @@ export default function App() {
             </AppLayout>
           }
         />
-
       </Routes>
     </BrowserRouter>
   );

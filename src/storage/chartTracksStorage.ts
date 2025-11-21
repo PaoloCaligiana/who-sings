@@ -14,7 +14,7 @@ export function saveChartTracks(country: string, chartTracks: ChartTrackEntry[])
 
   map[country] = {
     tracks: chartTracks,
-    timestamp: Date.now()
+    timestamp: Date.now(),
   };
 
   localStorage.setItem(CHART_KEY, JSON.stringify(map));

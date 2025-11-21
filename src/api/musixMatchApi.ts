@@ -7,8 +7,8 @@ export async function fetchChartTracks(country: string) {
       country,
       page: 1,
       f_has_lyrics: 1,
-      page_size: 100
-    }
+      page_size: 100,
+    },
   });
 
   return res.data?.message?.body?.track_list ?? [];
@@ -19,7 +19,7 @@ export async function fetchLyricsByCommontrack(commontrackId: number) {
     params: {
       endpoint: "track.lyrics.get",
       commontrack_id: commontrackId,
-    }
+    },
   });
 
   const lyrics = res.data?.message?.body?.lyrics;
