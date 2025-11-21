@@ -109,7 +109,13 @@
 
   /* --- RADIAL BACKGROUND UTILITY --- */
   .bg-hero-radial {
-    background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 55%, var(--color-bg) 100%);
+    background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 35%, var(--color-bg) 100%);
+  }
+
+  @media (min-width: 640px) {
+    .bg-hero-radial {
+      background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 55%, var(--color-bg) 100%);
+    }
   }
 
 

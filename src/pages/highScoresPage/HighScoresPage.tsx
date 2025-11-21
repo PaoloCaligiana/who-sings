@@ -13,8 +13,8 @@ export default function HighScoresPage() {
   const maxScore = Math.max(globalScoresStorage.getMaxScore(), 1);
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-1">
+    <div className="min-h-[70vh] mt-6">
+      <h1 className="text-2xl font-bold mb-2">
         {translate("highscores.title", lang)}
       </h1>
 

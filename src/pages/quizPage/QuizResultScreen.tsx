@@ -70,13 +70,13 @@ export default function QuizResult({
                 <div className="flex gap-3 flex-wrap">
                     {canContinue && onContinue ? (
                         <>
-                            <button className="btn-primary flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap" onClick={onContinue}>
+                            <button className="btn-primary flex-1 px-4 py-2 whitespace-nowrap" onClick={onContinue}>
                                 🔥 Round {infiniteRound + 1}
                             </button>
 
                             {onSaveAndQuit && (
                                 <button
-                                    className="btn-surface flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap"
+                                    className="btn-surface flex-1 px-4 py-2 whitespace-nowrap"
                                     onClick={() => {
                                         onSaveAndQuit();
                                         setTimeout(() => {
@@ -90,15 +90,15 @@ export default function QuizResult({
                         </>
                     ) : (
                         <>
-                            <button className="btn-primary flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap" onClick={reloadQuiz}>
+                            <button className="btn-primary flex-1 px-4 py-2 whitespace-nowrap" onClick={reloadQuiz}>
                                 {translate("quiz.playAgain", lang)}
                             </button>
 
-                            <a href="/me" className="btn-surface flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap">
+                            <a href="/me" className="btn-surface flex-1 px-4 py-2 whitespace-nowrap">
                                 {translate("quiz.myProfile", lang)}
                             </a>
 
-                            <a href="/highscores" className="btn-surface flex-1 px-2 sm:px-4 py-1 sm:py-2 whitespace-nowrap">
+                            <a href="/highscores" className="btn-surface flex-1 px-4 py-2 whitespace-nowrap">
                                 {translate("quiz.highScores", lang)}
                             </a>
                         </>
