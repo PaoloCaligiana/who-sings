@@ -66,11 +66,8 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
   // Not enough tracks
   if (finalTracks.length < QUIZ_OPTIONS_COUNT) return null;
 
-  // pick random tracks from finalTracks
-  const randomTracks = shuffle<ChartTrackEntry>(finalTracks).slice(0, QUIZ_OPTIONS_COUNT);
-
-  const options = randomTracks.map((t) => t.artist_name);
-  const correctTrack = randomTracks[0];
+  // Pick correct track first
+  const correctTrack = pickRandom(finalTracks);
 
   // Load lyrics
   const lyrics = await fetchLyricsByCommontrack(correctTrack.commontrack_id);
@@ -80,6 +77,24 @@ export async function generateQuizCard(artistName?: string, musicGenre?: string,
   if (lines.length < 2) return null;
 
   const lyricLine: string = pickRandom<string>(lines);
+
+  // Get unique artists excluding the correct one
+  const uniqueArtists = Array.from(
+    new Set(
+      finalTracks
+        .filter((t) => t.artist_name !== correctTrack.artist_name)
+        .map((t) => t.artist_name)
+    )
+  );
+
+  // Need at least QUIZ_OPTIONS_COUNT - 1 other artists
+  if (uniqueArtists.length < QUIZ_OPTIONS_COUNT - 1) return null;
+
+  // Pick random wrong artists
+  const wrongArtists = shuffle(uniqueArtists).slice(0, QUIZ_OPTIONS_COUNT - 1);
+
+  // Build options with correct artist + wrong artists, then shuffle
+  const options = shuffle([correctTrack.artist_name, ...wrongArtists]);
 
   return {
     lyricLine,

@@ -12,8 +12,8 @@ import QuizGameScreen from "./QuizGameScreen";
 import QuizErrorScreen from "./QuizErrorScreen";
 
 const QUIZ_CONFIG = {
-  normal: { questions: 2, time: 7, finishOnWrongAnswer: false },
-  infinite: { questions: 2, time: 7, finishOnWrongAnswer: true }
+  normal: { questions: 7, time: 7, finishOnWrongAnswer: false },
+  infinite: { questions: 7, time: 7, finishOnWrongAnswer: true }
 } as const;
 
 export default function QuizPage() {
