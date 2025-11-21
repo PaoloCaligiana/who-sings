@@ -1,17 +1,25 @@
-# 🎵 Who Sings — Musixmatch React Engineering Test
+# 🎵 Who Sings
 
-### A Music Quiz Game Powered by Musixmatch API
+### _A Music Quiz Game Powered by Musixmatch API_
 
-**Who Sings?** è un quiz game interattivo costruito con **React 18**, **TypeScript**, **Tailwind CSS v4** e una architettura basata su hook custom, caching intelligente e localStorage.  
-L’obiettivo: indovinare quale artista canta una _specifica riga di testo_ presa da canzoni reali, utilizzando le **Musixmatch API**.
-Il gioco assegna punti e medaglie, mostra le statistiche e le ultime partite di sessione, e registra i migliori player del dispositivo in una classifica globale, assegnando titoli in base ai generi delle canzoni piu' azzeccate.
-Disponibili due modalita' di quiz **Normal** e **Endless Mode**, in cui vengono selezionate automaticamente le tracce piu' popolari del Paese corrispondente alla lingua scelta dal giocatore:
+**Who Sings?** è un quiz game interattivo costruito con **React 18**, **TypeScript**, **Tailwind CSS v4** e un'architettura basata su custom hooks, caching intelligente e persistenza in `localStorage`.
 
-lingua EN → chart UK/US
-lingua IT → chart Italia
-lingua ES → chart Spagna
+L’obiettivo del gioco è indovinare quale artista canta una _specifica riga di testo_ estratta da canzoni reali tramite le **Musixmatch API**.
 
-Questo consente di generare quiz più rilevanti, familiari e contestualizzati per ogni utente.
+Il gioco include:
+
+- 🎯 Assegnazione di punti e medaglie
+- 📊 Statistiche personali e storico ultime partite
+- 🏆 Classifica globale locale (leaderboard) con miglior punteggio per player
+- 🎶 Titoli speciali basati sui generi musicali più indovinati
+- 🔄 Due modalità di gioco: **Normal Mode** e **Endless Mode**
+
+---
+
+## 🌍 Selezione automatica del Paese in base alla lingua
+
+In base alla lingua selezionata dal giocatore, l'app utilizza automaticamente le **tracce più popolari** del Paese corrispondente, sfruttando le Top Charts nazionali disponibili tramite Musixmatch.
+Questo garantisce quiz piu' familiari e coinvolgenti grazie alle hit del proprio Paese
 
 ---
 
