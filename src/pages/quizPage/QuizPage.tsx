@@ -103,7 +103,6 @@ export default function QuizPage() {
         isLegendary={quiz.isLegendary}
         canContinue={canContinue}
         onContinue={canContinue ? quiz.continueInfinite : undefined}
-        onSwitchMode={quiz.switchMode}
         onSaveAndQuit={isInfinite && canContinue ? quiz.saveAndQuitEndless : undefined}
       />
     );

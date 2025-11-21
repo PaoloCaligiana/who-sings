@@ -13,7 +13,6 @@ type QuizResultProps = {
     isLegendary?: boolean;
     canContinue?: boolean; // Se in infinite e ha completato tutte le domande senza errori
     onContinue?: () => void;
-    onSwitchMode: () => void;
     onSaveAndQuit?: () => void; // Salva sessione endless e torna al profilo
 };
 
@@ -42,7 +41,6 @@ export default function QuizResult({
     onContinue,
     infiniteRound = 1,
     onSaveAndQuit,
-    // onSwitchMode
 }: QuizResultProps) {
     const { lang } = useLang();
 
