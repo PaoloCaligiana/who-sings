@@ -5,32 +5,22 @@
   /* Brand Colors */
   --color-bg: #050816;
   --color-surface: #0f172a;
-  /* SI */
   --color-surface-dark: #0b1121;
-  /* SI */
   --color-primary: #f97316;
-  /* SI */
   --color-primary-soft: color-mix(in oklch, var(--color-primary) 80%, black);
-  /* SI */
   --color-secondary: rgb(255 255 255 / 0.7);
-  --color-success: #22c55e;
   --color-danger: #ef4444;
   --color-muted: #6b7280;
-  /* SI */
   --color-gradient-primary: linear-gradient(90deg, #FF6B6B, #FFB347);
-  /* SI */
   --color-gradient-primary-soft: linear-gradient(90deg, color-mix(in oklch, #FF6B6B 70%, black), color-mix(in oklch, #FFB347 70%, black));
-  /* SI */
-
 }
 
 @layer components {
 
   /* --- NAVBAR LINKS --- */
   .nav-link {
-    @apply text-sm font-medium text-white/90 sm:px-3 py-1.5 rounded-full transition hover:text-white hover:bg-white/10;
+    @apply text-sm font-medium text-white/90 sm:px-3 py-1.5 rounded-full transition hover:text-white hover:bg-white/10 hover:cursor-pointer;
   }
-
 
   .dropdown {
     @apply absolute right-0 mt-3 w-40 bg-surface/20 backdrop-blur-xl border border-white/10 rounded-xl shadow-xl z-99;
@@ -48,7 +38,6 @@
   .card {
     @apply w-full rounded-2xl p-6 sm:p-8 bg-surface/90 backdrop-blur-xl shadow-xl;
   }
-
 
   /* --- BUTTONS --- */
 
@@ -73,7 +62,7 @@
   }
 
   .btn-surface {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 text-white border-2 border-surface-dark bg-surface  hover:border-primary hover:cursor-pointer;
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 text-white border-2 border-surface-dark bg-surface hover:border-primary hover:cursor-pointer;
   }
 
   .btn-surface:active {
@@ -99,14 +88,6 @@
     @apply border-danger focus:border-danger;
   }
 
-
-
-
-  /* --- NAVBAR OUTLINE BUTTON (Logout) --- */
-  .btn-nav-outline {
-    @apply px-4 py-2 rounded-full text-sm font-medium border border-white/40 text-white/90 hover:text-white hover:border-white transition hover:cursor-pointer;
-  }
-
   /* --- RADIAL BACKGROUND UTILITY --- */
   .bg-hero-radial {
     background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 35%, var(--color-bg) 100%);
@@ -117,8 +98,6 @@
       background: radial-gradient(circle at top, #FF6B6B 0, var(--color-bg) 55%, var(--color-bg) 100%);
     }
   }
-
-
 
 
   /* BADGES */
@@ -146,18 +125,6 @@
     transition-timing-function: linear;
     /* smooth + continuo */
   }
-
-  /* PROGRESS BAR */
-  /* .progress-track {
-    @apply w-full h-2 mt-1 rounded-full bg-surface-dark overflow-hidden;
-  }
-
-  .progress-fill {
-    @apply h-full rounded-full transition-all duration-300;
-    background: var(--color-gradient-primary);
-  } */
-
-/* @apply inline-flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-white border-2 border-transparent; */
 
   /* ANSWER BUTTONS */
   .btn-answer {
@@ -201,7 +168,6 @@
     animation: music-bounce 0.8s ease-in-out infinite;
   }
 
-
   .m.music-bar:nth-child(1) {
     animation-delay: 0s;
   }
@@ -237,19 +203,6 @@
       height: 100%;
     }
   }
-
-
-
-
-
-  /* --- MINI UTILS --- */
-  .flag {
-    @apply text-lg;
-  }
-
-  /* .lang-trigger {
-    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface border border-surface-dark text-neutral-200 hover:border-primary hover:text-white transition;
-  } */
 
   /* --- LANGUAGE SWITCHER TRIGGER (style navbar-like) --- */
   .lang-trigger {

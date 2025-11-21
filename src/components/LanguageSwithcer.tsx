@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
       {/* Trigger */}
 
       <button onClick={() => setOpen((o) => !o)} className="lang-trigger">
-        <span className="flag">{current.flag}</span>
+        <span className="text-lg">{current.flag}</span>
         <span>{current.code.toUpperCase()}</span>
         <svg className={`w-3 h-3 transition-transform ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 9l-7 7-7-7" />
@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
         <div className="dropdown animate-fadeIn">
           {LANGUAGE_CONFIGS.map((item) => (
             <button key={item.code} onClick={() => { setLang(item.code); setOpen(false); }} className={lang === item.code ? "dropdown-item dropdown-item-active" : "dropdown-item"}>
-              <span className="flag">{item.flag}</span>
+              <span className="text-lg">{item.flag}</span>
               <span>{item.label}</span>
             </button>
           ))}
