@@ -11,7 +11,6 @@ export default function UserPage() {
     .getResultsForPlayer(playerName)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt)); // risultati ordinati dal più recente
   const last10 = results.slice(0, 10); // ultime 10 partite
-
   const gamesPlayed = results.length; // totale partite giocate
   const bestScore = results.reduce((max, r) => Math.max(max, r.score), 0); // miglior punteggio
   const highScoreUnlocked = bestScore >= 9; // medaglia punteggio alto
@@ -19,6 +18,7 @@ export default function UserPage() {
     // medaglia streak
     (r) => (r.maxStreak || 0) >= 5
   );
+
   return (
     <div className="min-h-[70vh] mt-6">
       {/* Titolo pagina */}
@@ -118,7 +118,7 @@ export default function UserPage() {
                     <strong>
                       {r.score}/{r.totalQuestions}
                     </strong>
-                    {r.maxStreak && r.maxStreak >= 3 && (
+                    {r.maxStreak !== undefined && r.maxStreak >= 3 && (
                       <span className="text-xs md:text-sm ml-1">🔥 {r.maxStreak}</span>
                     )}
                   </p>
