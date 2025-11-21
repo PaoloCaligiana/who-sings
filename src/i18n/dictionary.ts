@@ -90,9 +90,9 @@ export const dictionary = {
   },
 
   "quiz.myProfile": {
-    en: "Go to my profile",
-    it: "Vai al mio profilo",
-    es: "Ir a mi perfil",
+    en: "Go to profile",
+    it: "Vai al profilo",
+    es: "Ir al perfil",
   },
 
   "quiz.highScores": {
@@ -156,9 +156,9 @@ export const dictionary = {
   },
 
   "quiz.round": {
-    en: "{count} round",
-    it: "{count} turno",
-    es: "{count} ronda",
+    en: "Round {count} ",
+    it: "Turno {count} ",
+    es: "Ronda {count} ",
   },
 
   "quiz.endlessModeWarning": {
