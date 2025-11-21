@@ -30,6 +30,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
   const [cumulativeScore, setCumulativeScore] = useState(0);
   const [maxStreak, setMaxStreak] = useState(0); // Streak massima raggiunta
   const [isLegendary, setIsLegendary] = useState(false); // Nuovo record mondiale
+  const [shouldSaveEndlessSession, setShouldSaveEndlessSession] = useState(false); // Flag per salvare sessione endless
 
   /* -------------------------------------------------------------------------- */
   /*                            CARICAMENTO INIZIALE                              */
@@ -77,6 +78,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
       setCumulativeScore(0);
       setInfiniteRound(1);
       setMaxStreak(0);
+      setShouldSaveEndlessSession(false);
     }
 
     async function reload() {
@@ -112,6 +114,9 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
       round: newRound,
     });
 
+    // Reset flag di salvataggio (non vogliamo salvare qui, solo alla fine)
+    setShouldSaveEndlessSession(false);
+
     // Ricarica domande
     setStatus("loadingQuestions");
     setScore(0); // Reset score del round corrente
@@ -144,6 +149,23 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     setStreak(0);
 
     setStatus("loadingQuestions");
+  };
+
+  /** Salva e termina sessione endless (per bottone Save & Quit) */
+  const saveAndQuitEndless = () => {
+    if (!finishOnWrongAnswer) return; // Solo per endless mode
+
+    // Verifica se è un nuovo record
+    const finalScore = cumulativeScore + score;
+    const previousMaxScore = globalScoresStorage.getMaxScore();
+    if (finalScore > previousMaxScore) {
+      setIsLegendary(true);
+    }
+
+    // Marca per salvare e termina
+    setShouldSaveEndlessSession(true);
+    clearInfiniteProgress();
+    setStatus("finished");
   };
 
   /** Inizia il quiz con le domande già caricate */
@@ -193,6 +215,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
       if (finalScore > previousMaxScore) {
         setIsLegendary(true);
       }
+      setShouldSaveEndlessSession(true); // Marca per salvare la sessione
       clearInfiniteProgress();
       setTimeout(() => setStatus("finished"), 800);
     } else {
@@ -229,6 +252,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
         setIsLegendary(true);
       }
       // Salva punteggio finale prima di terminare
+      setShouldSaveEndlessSession(true); // Marca per salvare la sessione
       clearInfiniteProgress();
       setTimeout(() => setStatus("finished"), 800);
     } else {
@@ -253,6 +277,7 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     totalScore: cumulativeScore + score, // Punteggio totale in infinite mode
     maxStreak, // Streak massima raggiunta nell'intera sessione
     isLegendary, // Indica se ha battuto il record mondiale
+    shouldSaveEndlessSession, // Flag per salvare la sessione endless solo quando termina
 
     // Actions
     startGame,
@@ -261,5 +286,6 @@ export function useQuizEngine(options: UseQuizEngineOptions | number) {
     reloadQuiz,
     continueInfinite,
     switchMode,
+    saveAndQuitEndless,
   };
 }

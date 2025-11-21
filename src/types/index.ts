@@ -13,6 +13,9 @@ export interface GameResult {
   score: number;
   totalQuestions: number;
   createdAt: string; // ISO
+  mode?: QuizMode; // normal | infinite
+  rounds?: number; // numero di round completati (solo per infinite)
+  maxStreak?: number; // streak massima raggiunta
 }
 
 export interface ChartTrackEntry {

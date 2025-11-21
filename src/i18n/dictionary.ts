@@ -269,6 +269,12 @@ export const dictionary = {
     es: "Puntuación",
   },
 
+  "quiz.saveAndQuit": {
+    en: "Save and Quit",
+    it: "Salva e Esci",
+    es: "Guardar y Salir",
+  },
+
   "highscores.title": {
     en: "Leaderboard 👑",
     it: "Classifica 👑",

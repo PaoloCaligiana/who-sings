@@ -14,6 +14,7 @@ type QuizResultProps = {
     canContinue?: boolean; // Se in infinite e ha completato tutte le domande senza errori
     onContinue?: () => void;
     onSwitchMode: () => void;
+    onSaveAndQuit?: () => void; // Salva sessione endless e torna al profilo
 };
 
 // Helper per selezionare messaggio motivazionale/vittoria in base al round (rotazione ciclica)
@@ -40,6 +41,7 @@ export default function QuizResult({
     canContinue = false,
     onContinue,
     infiniteRound = 1,
+    onSaveAndQuit,
     // onSwitchMode
 }: QuizResultProps) {
     const { lang } = useLang();
@@ -74,9 +76,19 @@ export default function QuizResult({
                                 🔥 Continue ({infiniteRound+1} Round)
                             </button>
                             
-                            {/* <button className="btn-surface" onClick={onSwitchMode}>
-                                {isInfiniteMode ? "Go Normal Mode" : "Go Infinity Mode"}
-                            </button> */}
+                            {onSaveAndQuit && (
+                                <button 
+                                    className="btn-surface" 
+                                    onClick={() => {
+                                        onSaveAndQuit();
+                                        setTimeout(() => {
+                                            window.location.href = '/me';
+                                        }, 100);
+                                    }}
+                                >
+                                    💾 {translate("quiz.saveAndQuit", lang)}
+                                </button>
+                            )}
                         </>
                     ) : (
                         <>

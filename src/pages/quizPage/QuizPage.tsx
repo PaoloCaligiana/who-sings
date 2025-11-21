@@ -39,14 +39,25 @@ export default function QuizPage() {
   useEffect(() => {
     if (quiz.status === "finished") {
       const isInfinite = mode === "infinite";
+      
+      // In modalità infinite, salva SOLO se la sessione è terminata (errore/timeout)
+      // Non salvare quando l'utente preme "Continue" per il prossimo round
+      if (isInfinite && !quiz.shouldSaveEndlessSession) {
+        console.log('[Quiz] Sessione infinite continuata, non salvo ancora');
+        return;
+      }
+
       const finalScore = isInfinite ? quiz.totalScore : quiz.score;
       const finalMaxStreak = isInfinite ? quiz.maxStreak : quiz.streak;
 
       const gameResult = {
         playerName,
         score: finalScore,
-        totalQuestions: isInfinite ? finalScore : config.questions, // In infinita, totalQuestions = score raggiunto
-        createdAt: new Date().toISOString()
+        totalQuestions: isInfinite ? quiz.infiniteRound * config.questions : config.questions,
+        createdAt: new Date().toISOString(),
+        mode,
+        rounds: isInfinite ? quiz.infiniteRound : 1,
+        maxStreak: finalMaxStreak
       };
 
       globalScoresStorage.saveGameResult(gameResult);
@@ -56,10 +67,11 @@ export default function QuizPage() {
         mode,
         score: finalScore,
         maxStreak: finalMaxStreak,
-        round: isInfinite ? quiz.infiniteRound : 1
+        rounds: gameResult.rounds,
+        totalQuestions: gameResult.totalQuestions
       });
     }
-  }, [quiz.status, playerName, quiz.score, quiz.totalScore, quiz.maxStreak, quiz.streak, quiz.infiniteRound, mode, config.questions]);
+  }, [quiz.status, playerName, quiz.score, quiz.totalScore, quiz.maxStreak, quiz.streak, quiz.infiniteRound, quiz.shouldSaveEndlessSession, mode, config.questions]);
 
   /* ========================================================================== */
   /*                       RENDER: LOADING / START BUTTON / ERROR               */
@@ -84,7 +96,7 @@ export default function QuizPage() {
       <QuizResultScreen
         playerName={playerName}
         score={isInfinite ? quiz.totalScore : quiz.score}
-        totalQuestions={isInfinite ? quiz.totalScore : config.questions}
+        totalQuestions={isInfinite ? quiz.infiniteRound * config.questions : config.questions}
         reloadQuiz={quiz.reloadQuiz}
         isInfiniteMode={isInfinite}
         infiniteRound={quiz.infiniteRound} 
@@ -92,6 +104,7 @@ export default function QuizPage() {
         canContinue={canContinue}
         onContinue={canContinue ? quiz.continueInfinite : undefined}
         onSwitchMode={quiz.switchMode}
+        onSaveAndQuit={isInfinite && canContinue ? quiz.saveAndQuitEndless : undefined}
       />
     );
   }

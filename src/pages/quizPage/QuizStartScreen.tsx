@@ -46,14 +46,14 @@ export default function QuizStartScreen({
           <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">
             {config.title}
           </h2>
-          <p className="text-sm sm:text-base text-secondary mb-4">
+          <p className="text-sm sm:text-base text-secondary ">
             {config.subtitle}
           </p>
         </div>
 
         {/* Warning (Infinite Mode) */}
         {config.showWarning && (
-          <div className="bg-surface-dark/80 border border-white/5 rounded-xl p-4">
+          <div className="flex justify-center">
             <p className="text-xs sm:text-sm text-primary">
               ⚡ {translate("quiz.endlessModeWarning", lang)}
             </p>
@@ -61,7 +61,7 @@ export default function QuizStartScreen({
         )}
 
         {/* Buttons */}
-        <div className="flex flex-col gap-4 mt-2">
+        <div className="flex flex-col gap-4 mt-4">
           <button
             className="btn-primary"
             disabled={questionsCount === 0}

@@ -1,10 +1,7 @@
 import { getCurrentPlayer } from "../../storage/playerStorage";
 import { currentScoresStorage } from "../../storage/currentScoresStorage";
 import { useLang } from "../../i18n/LangContext";
-import type { GameResult } from "../../types";
 import { translate } from "../../i18n/utils";
-
-type ExtendedGameResult = GameResult & { maxStreak?: number };
 
 
 export default function UserPage() {
@@ -19,7 +16,7 @@ export default function UserPage() {
   const gamesPlayed = results.length;                          // totale partite giocate
   const bestScore = results.reduce((max, r) => Math.max(max, r.score), 0);   // miglior punteggio
   const highScoreUnlocked = bestScore >= 9;                    // medaglia punteggio alto
-  const hotStreakUnlocked = (results as ExtendedGameResult[]).some(          // medaglia streak
+  const hotStreakUnlocked = results.some(          // medaglia streak
     (r) => (r.maxStreak || 0) >= 5
   );
   return (
@@ -127,10 +124,21 @@ export default function UserPage() {
                 {/* Riga partita */}
                 <div className="flex justify-between items-center py-1 flex-wrap gap-1">
                   <p className="text-sm">
-                    {new Date(r.createdAt).toLocaleString()} –{" "}
+                    {new Date(r.createdAt).toLocaleString()}{" "}
+                    {r.mode === "infinite" && (
+                      <span className="text-xs text-primary font-semibold">
+                        ∞ {r.rounds || 1} {r.rounds === 1 ? "round" : "rounds"}
+                      </span>
+                    )}
+                    {" - "}
                     <strong>
                       {r.score}/{r.totalQuestions}
                     </strong>
+                    {r.maxStreak && r.maxStreak >= 3 && (
+                      <span className="text-xs ml-1">
+                        🔥 {r.maxStreak}
+                      </span>
+                    )}
                   </p>
                 </div>
 
